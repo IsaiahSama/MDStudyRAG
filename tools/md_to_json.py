@@ -2,6 +2,9 @@
 # Aim will be to use Alpaca format and trust the process.
 
 from typing import List, Dict
+from json import dump
+
+DEBUG = True
 
 def read_contents_from_md(md_file: str) -> str:
     """This function will simply read the contents from a markdown file, perform any necessary pre-processing, and return the contents..
@@ -13,34 +16,36 @@ def read_contents_from_md(md_file: str) -> str:
         str: The pre-processed contents of the markdown file as a string.
     """
     
-    raise NotImplementedError
+    try:
+        with open(md_file, "r") as f:
+            contents: str = f.read()
+            return contents
+    except Exception as e:
+        print(e)
+        return ""
 
-def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | List[Dict]]]:
+def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | Dict]] | None:
     """This will create a hierarchy of headings and content as found in the markdown file.
 
     Example:
     ```
     {
         "Database Architecture & Major Types of Databases": {
-            "content": "some content",
-            "children": [
-                {
-                    "Centralized": {
-                        "content": "some other content",
-                        "children": []
-                    }
+            "content": '''some content''',
+            "children": {
+                "Centralized": {
+                    "content": '''some other content''',
+                    "children": {}
                 },
-                {
-                    "Distributed": {
-                        "content": "Then some other content",
-                        "children": []
-                    }
+                "Distributed": {
+                    "content": '''Then some other content''',
+                    "children": {}
                 }
-            ]
+            }
         },
         "Types of Databases": {
-            "content": "Last set of content",
-            "children": []
+            "content": '''Last set of content''',
+            "children": {}
     }
     ```
     
@@ -51,9 +56,93 @@ def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | List[Dict]]]:
         Dict[str, Dict[str, str | List[Dict]]]: A dictionary of headings and their content!
     """
     
-    raise NotImplementedError
+    if (not contents): return None
+    
+    hierarchy: Dict[str, Dict[str, str | List[Dict]]] = {}
+    
+    # By splitting the contents of the file by "#", we get the content separated by empty strings. The number of empty strings before text, indicates the heading level.
+    # Issue: If # exists within the text outside of headings... Then we can have some problems.
+    # Will go forward with this in mind.
+    
+    parsed_content: List[str] = contents.split("#")
+    
+    # If the file starts with a heading, we want to ignore the split space before it:
+    
+    if parsed_content[0] == "": parsed_content = parsed_content[1:]
+    
+    # Now, for the hierarchy building...
+    # This process will involve going through a file, and finding the various headings and nested ones, and nesting them appropriately... Rec... Recu... 🤢... Recursively.
+    
+    #... SIKE! ITERATION BABYYYYY
+    
+    # Now, each block of split text, will be separated by 0 to 4 empty strings (''), indicative of headings from level 1 to 5.
+    
+    # Before going forward, we're going to need a heading stack!
+    
+    # When iterating, and we go up a heading level, this will tell us the previous heading in the stack.
+    
+    # This will be in the format of: {heading_level: last_heading_for_that_level}
+    
+    heading_stack: Dict[int, str] = {}
+    
+    # As we iterate over each of these block of texts, we need to separate the headinigs from the rest of the body.
+    
+    current_heading_level = 1
+    for text_block in parsed_content:
+        # Step 1, determine the current heading level!
+        if text_block == "": 
+            current_heading_level += 1
+            continue
+        
+        # Step 2, find the heading and the body
+        # We can accomplish this by splitting that block by `\n`, where the first line would be the heading, and everything else will be the body
+        
+        heading, body = text_block.split("\n", 1)
+        heading = heading.strip() # Need to remove the leading whitespace from the # split.
+        
+        # Step 3, create the dictionary that will hold the content for this level
+        
+        content_dict: Dict[str, str | List[Dict]] = {
+            "content": body.lstrip("\n"), # Want to remove the leading \n from the split
+            "children": {}
+        }
+        
+        # Step 4! Determine where we are in the hierarchy, and whether we need to add this as a child or not.
+        # If we're at level 1, then we don't have to worry about finiding the previous one.
+        if current_heading_level == 1:
+            hierarchy[heading] = content_dict
+        else:
+            # If we're not at level 1, then we find the heading for the previous levels, and work our way back down.
+            prev_level = 1
+            parent_dict = hierarchy
+            while prev_level < current_heading_level:
+                previous_heading = heading_stack[prev_level]
+                parent_dict = parent_dict[previous_heading]["children"]
+                prev_level += 1
+                
+            parent_dict[heading] = content_dict
+        
+        # Step 5, set this heading as the heading for the current level
+        heading_stack[current_heading_level] = heading
+        
+        # Step 6, reset heading level to 1
+        current_heading_level = 1
+        
+    # Once the loop is done, we can return the hierarchy
+    
+    # These just here for debugging purposes
+    if DEBUG:
+        if len(hierarchy) == 1:
+            filename = "small_sample.json"
+        else:
+            filename = "sample.json"
+        
+        with open(filename, "w") as fp:
+            dump(hierarchy, fp, indent=4)
+    
+    return hierarchy
 
-def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | List[Dict]]]) -> List[Dict[str, str]]:
+def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | Dict]]) -> List[Dict[str, str]]:
     """This function will create a list of dictionaries following Alpaca format.
     
     Example:
@@ -68,7 +157,7 @@ def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | List[Dict]]]) -> Lis
     ```
 
     Args:
-        hierarchy (Dict[str, Dict[str, str | List[Dict]]]): A dictionary of headings and their content
+        hierarchy (Dict[str, Dict[str, str | Dict]]): A dictionary of headings and their content
 
     Returns:
         List[Dict[str, str]]: A list of dictionaries following Alpaca format.
@@ -92,7 +181,7 @@ def md_to_json(md_file: str) -> List[Dict[str, Dict[str, str]]]:
     contents: str = read_contents_from_md(md_file)
     
     # Create a hierarchy using the headings of the markdown file. (Would love to use grep, but we have to be platform friendly)
-    hierarchy: Dict[str, Dict[str, str | List[Dict]]] = create_hierarchy(contents)
+    hierarchy: Dict[str, Dict[str, str | Dict]] = create_hierarchy(contents)
     
     # For each heading, create a dictionary with the instruction, input, and output.
         # The instruction will be a prompt such as: "Give me information about {heading_title}"
@@ -104,3 +193,6 @@ def md_to_json(md_file: str) -> List[Dict[str, Dict[str, str]]]:
     # Return the list of dictionaries.
     
     return alpaca_json
+
+if __name__ == "__main__":
+    print(md_to_json("./small_sample.md"))
