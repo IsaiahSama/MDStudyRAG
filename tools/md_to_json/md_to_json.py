@@ -3,6 +3,9 @@
 
 from typing import List, Dict
 from json import dump
+from collections import deque
+from random import choice
+from pprint import pprint
 
 DEBUG = True
 
@@ -53,7 +56,7 @@ def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | Dict]] | None:
         contents (str): The contents of the markdown file to be parsed.
 
     Returns:
-        Dict[str, Dict[str, str | List[Dict]]]: A dictionary of headings and their content!
+        (Dict[str, Dict[str, str | Dict]]): A dictionary of headings and their content!
     """
     
     if (not contents): return None
@@ -79,7 +82,7 @@ def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | Dict]] | None:
     
     # Before going forward, we're going to need a heading stack!
     
-    # When iterating, and we go up a heading level, this will tell us the previous heading in the stack.
+    # When iterating, we need to keep track of the last heading for each level.
     
     # This will be in the format of: {heading_level: last_heading_for_that_level}
     
@@ -160,12 +163,57 @@ def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | Dict]]) -> List[Dict
         hierarchy (Dict[str, Dict[str, str | Dict]]): A dictionary of headings and their content
 
     Returns:
-        List[Dict[str, str]]: A list of dictionaries following Alpaca format.
+        (List[Dict[str, str]]): A list of dictionaries following Alpaca format.
     """
     
-    raise NotImplementedError
+    # Okay, now we have our hierarchy for all the data we need. Now to transform it into Alpaca format.
+    
+    alpaca_json: List[Dict[str, str]] = []
+    
+    # For this process, we might actually have to use recursion 😷.
+    
+    # The aim is to go through the hierarchy and create a dictionary from each one matching the alpaca format.
+    
+    # The instruction will be `{basic prompt} {heading}`.
+    basic_prompts = ["Tell me about {}", "Can you clarify {}", "What is {}", "Give me information about {}", "Can you explain {}"]
+    
+    # The input will be the names of all the subheadings under it by 1 level. (So it's immediate children)
+    # The output will be the content of that heading, which at higher levels won't be as useful as the lower levels.
+    
+    # But of course. Never use Recursion! We'll use an iterative breadth first search instead!
 
-def md_to_json(md_file: str) -> List[Dict[str, Dict[str, str]]]:
+    # level_stack = ["" for _ in range(5)] # We'll go a max of 5 headings deep. This is an improvement to the heading level dictionary!  #UPdate: Nevermind, no need for it
+    
+    queue = deque([(heading, level_dict) for heading, level_dict in list(hierarchy.items())])
+    
+    # current_level = 1
+    while queue:
+        heading, level_dict = queue.popleft()
+        # level_stack[current_level - 1] = heading
+        
+        # Check for children
+        children = level_dict["children"]
+        if children:
+            for child_heading, child_level_dict in children.items():
+                queue.append((child_heading, child_level_dict))
+        
+        # Now that we have the children, we can create what we need!
+        
+        alpaca_json_dict = {
+            "instruction": choice(basic_prompts).format(heading),
+            "input": ' '.join(list(children.keys())),
+            "output": level_dict["content"]
+        }
+        
+        alpaca_json.append(alpaca_json_dict)
+    
+    if DEBUG:
+        with open("alpaca_json.json", "w") as fp:
+            dump(alpaca_json, fp, indent=4)
+    
+    return alpaca_json
+
+def md_to_alpaca_json(md_file: str) -> List[Dict[str, Dict[str, str]]]:
     """This function will be responsible for turning a given markdown file, into a json file following Alpaca format, ie, [{instruction, input, output}]
 
     Args:
@@ -188,11 +236,11 @@ def md_to_json(md_file: str) -> List[Dict[str, Dict[str, str]]]:
         # The input will be the names of the subheadings, which will serve to provide some form of additional context. (I hope)
         # The output will be the text content of the current heading.
 
-    alpaca_json: Dict[str, Dict[str, str]] = create_alpaca_json(hierarchy)
+    alpaca_json: List[Dict[str, str]] = create_alpaca_json(hierarchy)
     
     # Return the list of dictionaries.
     
     return alpaca_json
 
 if __name__ == "__main__":
-    print(md_to_json("./small_sample.md"))
+    print(md_to_alpaca_json("./sample.md"))
