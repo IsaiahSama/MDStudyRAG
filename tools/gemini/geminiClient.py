@@ -2,16 +2,11 @@ from dotenv import load_dotenv
 from os import environ
 import google.generativeai as genai
 from google.generativeai.types.generation_types import GenerateContentResponse
-from .. import GEMINI_API_KEY
+from gemini import GEMINI_API_KEY
 
 
 class GeminiClient:
     def __init__(self):
-        api_key = GEMINI_API_KEY
-        if not api_key:
-            raise Exception("GEMINI_API_KEY not set in the .env file.")
-        
-        genai.configure(api_key=GEMINI_API_KEY)
         
         self.client = genai.GenerativeModel('models/gemini-pro')
         

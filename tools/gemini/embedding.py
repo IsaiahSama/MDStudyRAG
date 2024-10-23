@@ -1,6 +1,6 @@
 from chromadb import EmbeddingFunction, Documents, Embeddings
 import google.generativeai as genai
-from .. import GEMINI_EMBEDDING_MODEL
+from gemini import GEMINI_EMBEDDING_MODEL
 
 class GeminiEmbeddingFunction(EmbeddingFunction):
     def __call__(self, input_: Documents) -> Embeddings:
