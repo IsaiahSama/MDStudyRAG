@@ -14,7 +14,7 @@ class GeminiClient:
         
         self.client = genai.GenerativeModel('models/gemini-pro')
         
-    def make_prompt(self, query: str, context: str, level:int=1) -> str:
+    def make_prompt(self, query: str, context: str, level:int=2) -> str:
         """Creates a prompt suitable for the model, alongside the given context.
 
         Args:
@@ -32,12 +32,13 @@ class GeminiClient:
         
         match level:
             case 3:
-                prompt += f"""Supplementary Context : \n{formatted_context}\n 
-                Note: If the question is not related to the context, please start your response with 'OUT OF CONTEXT', and then use your knowledge to attempt to answer the question briefly."""
+                prompt += f"""Supplementary Context : \n{formatted_context}\n END OF CONTEXT.
+                When responding to the question, be sure to pull from the entire supplementary context where appropiate, to provide an insightful answer in a friendly manner. Be sure to paraphrase but explain clearly.
+                If the question is not related to anything in the supplementary context, please start your response with 'OUT OF CONTEXT', and then use your knowledge to attempt to answer the question briefly and to the best of your ability, while being as faithful as possible to the given context."""
                 
             case 2:
-                prompt += f"""Supplementary Context : \n {formatted_context}\n
-                Note: If the question is not related to the context, please respond with 'OUT OF CONTEXT'."""
+                prompt += f"""Supplementary Context : \n {formatted_context}\n END OF CONTEXT
+                If the question is not related to the context, please respond with only 'OUT OF CONTEXT'."""
             case _:
                 pass
             

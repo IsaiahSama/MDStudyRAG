@@ -86,6 +86,9 @@ class ChromaClient:
                 raise InvalidCollectionException("Collection not initialized")
             collection_name = self.db.name
             
+        if self.client.get_collection(name=collection_name) is None:
+            raise InvalidCollectionException("Collection does not exist")
+            
         self.client.delete_collection(name=collection_name)
         return None
     

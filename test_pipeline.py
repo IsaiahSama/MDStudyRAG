@@ -8,7 +8,7 @@ import pandas as pd
 
 # First, we'll select a markdown file!
 
-md_file: str = "./tools/md_to_json/small_sample.md"
+md_file: str = "./caribbean_frontiers.md"
 
 # Then, we turn this! Into Alpaca Json
 
@@ -20,21 +20,39 @@ stringified_alpaca_json: List[str] = md_to_json.stringify_alpaca_json(alpaca_jso
 
 chroma_client: ChromaClient = ChromaClient()
 
-chroma_client.delete_collection("testing")
-chroma_client.get_or_create_collection("testing", GeminiEmbeddingFunction, "Database Management Systems Course Information")
+# try:
+#     chroma_client.delete_collection("testing")
+# except: 
+#     pass
 
-chroma_client.add_items_to_collection(stringified_alpaca_json)
+chroma_client.get_or_create_collection("testing", GeminiEmbeddingFunction, "Caribbean Frontiers")
 
-query = "Give me information about Traditional File Systems"
+# And store them in the database!
+
+# chroma_client.add_items_to_collection(stringified_alpaca_json)
+
+# Prepare the query!!!!!!!
+
+query = "Can you tell me what is Jonathan's role as a member of the team, and tell me a bit about him along with his weapon of choice? Also, is he an explorer, leader, warrior or guardian?"
+print("Query: ", query)
+
+# Get the relevant passaages from the database
 
 passages: List[str] = chroma_client.query_collection(query, n_results=3)
+
+print("Relevant Passages based on query: ", passages)
 
 context_passage = ' '.join(passages)
 
 gemini_client = GeminiClient()
 
-prompt = gemini_client.make_prompt(query, context_passage)
+# Creat the prompt!
+prompt = gemini_client.make_prompt(query, context_passage, 3)
+
+print("The prompt: ", prompt)
+
+# Fireeeeee
 
 response = gemini_client.prompt_model(prompt)
 
-print(response)
+print("Gemini Response: ", response)
