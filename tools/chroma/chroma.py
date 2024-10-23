@@ -15,8 +15,14 @@ class ChromaClient:
         self.client: chromadb.ClientAPI = client
         self.db = None
         
-    def get_or_create_collection(self, collection_name: str, embedding_function) -> None:
-        self.db = self.client.get_or_create_collection(name=collection_name, embedding_function=embedding_function)
+    def get_or_create_collection(self, collection_name: str, embedding_function:chromadb.EmbeddingFunction) -> None:
+        """Gets or creates a collection with the given name and embedding function
+
+        Args:
+            collection_name (str): _description_
+            embedding_function (chromadb.EmbeddingFunction): _description_
+        """
+        self.db = self.client.get_or_create_collection(name=collection_name, embedding_function=embedding_function())
 
     def add_items_to_collection(self, items: List[str]) -> None:
         """Adds the items to the collection initialized using the get_or_create_collection method
