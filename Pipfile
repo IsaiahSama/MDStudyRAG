@@ -8,6 +8,7 @@ google-generativeai = "==0.3.2"
 chromadb = "*"
 pandas = "*"
 python-dotenv = "*"
+polars = "*"
 
 [dev-packages]
 

@@ -2,7 +2,11 @@ from dotenv import load_dotenv
 from os import environ
 import google.generativeai as genai
 from google.generativeai.types.generation_types import GenerateContentResponse
-from gemini import GEMINI_API_KEY
+
+try:
+    from gemini import GEMINI_API_KEY
+except ImportError:
+    from tools.gemini import GEMINI_API_KEY
 
 
 class GeminiClient:
@@ -32,7 +36,7 @@ class GeminiClient:
                 Note: If the question is not related to the context, please start your response with 'OUT OF CONTEXT', and then use your knowledge to attempt to answer the question briefly."""
                 
             case 2:
-                prompt += f"""Supplemntary Context : \n {formatted_context}\n
+                prompt += f"""Supplementary Context : \n {formatted_context}\n
                 Note: If the question is not related to the context, please respond with 'OUT OF CONTEXT'."""
             case _:
                 pass

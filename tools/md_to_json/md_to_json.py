@@ -7,7 +7,7 @@ from collections import deque
 from random import choice
 from pprint import pprint
 
-DEBUG = True
+DEBUG = False
 
 def read_contents_from_md(md_file: str) -> str:
     """This function will simply read the contents from a markdown file, perform any necessary pre-processing, and return the contents..
@@ -202,7 +202,7 @@ def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | Dict]]) -> List[Dict
         alpaca_json_dict = {
             "instruction": choice(basic_prompts).format(heading),
             "input": ' '.join(list(children.keys())),
-            "output": level_dict["content"]
+            "output": level_dict["content"] or "Not enough information, but these are the related topics - " + ' '.join(list(children.keys()))
         }
         
         alpaca_json.append(alpaca_json_dict)
@@ -213,7 +213,7 @@ def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | Dict]]) -> List[Dict
     
     return alpaca_json
 
-def md_to_alpaca_json(md_file: str) -> List[Dict[str, Dict[str, str]]]:
+def md_to_alpaca_json(md_file: str) -> List[Dict[str, str]]:
     """This function will be responsible for turning a given markdown file, into a json file following Alpaca format, ie, [{instruction, input, output}]
 
     Args:
@@ -241,6 +241,9 @@ def md_to_alpaca_json(md_file: str) -> List[Dict[str, Dict[str, str]]]:
     # Return the list of dictionaries.
     
     return alpaca_json
+
+def stringify_alpaca_json(alpaca_json: List[Dict[str, str]]) -> List[str]:
+    return [' '.join([f"{key}: {value}\n" for key, value in alpaca.items() if value]) for alpaca in alpaca_json]
 
 if __name__ == "__main__":
     print(md_to_alpaca_json("./sample.md"))
