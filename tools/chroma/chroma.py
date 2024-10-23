@@ -23,6 +23,7 @@ class ChromaClient:
             embedding_function (chromadb.EmbeddingFunction): _description_
         """
         self.db = self.client.get_or_create_collection(name=collection_name, embedding_function=embedding_function())
+        return None
 
     def add_items_to_collection(self, items: List[str]) -> None:
         """Adds the items to the collection initialized using the get_or_create_collection method
@@ -45,27 +46,4 @@ class ChromaClient:
                 ids=str(i + initial_size))
             sleep(0.5)
             
-    def get_db(self, collection_name: str) -> chromadb.Collection:
-        """Gets a collection by it's name.
-
-        Args:
-            collection_name (str): The name of the collection to get from the chroma db
-
-        Returns:
-            chromadb.Collection: The returned collection
-        """
-        return self.client.get_collection(name=collection_name)
-    
-    def get_current_db(self) -> chromadb.Collection:
-        """Gets the collection using the current initialized db value.
-
-        Raises:
-            InvalidCollectionException: Error raised when self.db is not initialized or not a chromadb.Collection
-
-        Returns:
-            chromadb.Collection: The collection from the client.
-        """
-        if not self.db or not isinstance(self.db, chromadb.Collection): 
-            raise InvalidCollectionException("Collection not initialized")
-
-        return self.client.get_collection(name=self.db.name)
+        return None
