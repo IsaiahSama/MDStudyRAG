@@ -42,8 +42,30 @@ class ChromaClient:
         
         for i, d in tqdm(enumerate(items), total=len(items), desc="Adding items to collection"):
             self.db.add( 
-                documents=d,
-                ids=str(i + initial_size))
+                documents=[d],
+                ids=[str(i + initial_size)]
+            )
             sleep(0.5)
             
         return None
+    
+    def query_collection(self, query: str, n_results:int = 5) -> List[str]:
+        """Queries the collection and returns the resulting documents.
+
+        Args:
+            query (str): The query to execute
+            n_results (int, optional): The number of top results to return. Defaults to 5.
+
+        Returns:
+            List[str]: The resulting documents contained as a list of strings
+        """
+        
+        if not self.db or not isinstance(self.db, chromadb.Collection): 
+            raise InvalidCollectionException("Collection not initialized")
+        
+        passages = self.db.query(
+            query_texts=query, 
+            n_results=n_results
+        )['documents'][0]
+        
+        return passages
