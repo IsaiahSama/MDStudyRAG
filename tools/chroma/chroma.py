@@ -69,3 +69,21 @@ class ChromaClient:
         )['documents'][0]
         
         return passages
+    
+    def delete_collection(self, collection_name: str = None) -> None:
+        """Deletes a collection
+
+        Args:
+            collection_name (str, optional): The name of the collection to delete. Defaults to None.
+
+        Returns:
+            None: Nothing
+        """
+        
+        if not collection_name:
+            if not self.db or not isinstance(self.db, chromadb.Collection): 
+                raise InvalidCollectionException("Collection not initialized")
+            collection_name = self.db.name
+            
+        self.client.delete_collection(name=collection_name)
+        return None
