@@ -88,3 +88,8 @@ class ChromaClient:
             
         self.client.delete_collection(name=collection_name)
         return None
+    
+    def peek(self, limit:int = 5) -> chromadb.GetResult:
+        if not self.db or not isinstance(self.db, chromadb.Collection): 
+            raise InvalidCollectionException("Collection not initialized")
+        return self.db.peek(limit=limit)

@@ -53,5 +53,5 @@ class GeminiClient:
             str: The response from the model.
         """
         
-        model_response: GenerateContentResponse = self.client.generate_content(prompt=prompt)
+        model_response: GenerateContentResponse = self.client.generate_content(contents=prompt)
         return model_response.text
