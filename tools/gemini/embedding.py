@@ -1,13 +1,10 @@
 from chromadb import EmbeddingFunction, Documents, Embeddings
 import google.generativeai as genai
-from dotenv import load_dotenv
-from os import environ
-
-load_dotenv()
+from .. import GEMINI_EMBEDDING_MODEL
 
 class GeminiEmbeddingFunction(EmbeddingFunction):
     def __call__(self, input_: Documents) -> Embeddings:
-        model: str = environ.get("GEMINI_EMBEDDING_MODEL", "models/embedding-001")
+        model: str = GEMINI_EMBEDDING_MODEL
         title: str = "Custom Query"
         return genai.embed_content(model, 
                                 input_,
