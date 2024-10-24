@@ -5,7 +5,7 @@ from typing import List, Dict
 from json import dump
 from collections import deque
 from random import choice
-from pprint import pprint
+from os.path import exists
 
 DEBUG = False
 
@@ -17,15 +17,15 @@ def read_contents_from_md(md_file: str) -> str:
 
     Returns:
         str: The pre-processed contents of the markdown file as a string.
+        
+    Raises:
+        FileNotFoundError: If the file does not exist.
     """
     
-    try:
-        with open(md_file, "r") as f:
-            contents: str = f.read()
-            return contents
-    except Exception as e:
-        print(e)
-        return ""
+    if not md_file or not exists(md_file): raise FileNotFoundError
+    with open(md_file, "r") as f:
+        contents: str = f.read()
+        return contents
 
 def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | Dict]] | None:
     """This will create a hierarchy of headings and content as found in the markdown file.

@@ -1,9 +1,6 @@
 from tools import md_to_json, ChromaClient, GeminiEmbeddingFunction, GeminiClient
 from typing import List, Dict
 
-import pandas as pd
-
-
 """This file will test the process from start to finish!"""
 
 # First, we'll select a markdown file!
