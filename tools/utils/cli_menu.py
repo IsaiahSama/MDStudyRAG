@@ -18,7 +18,6 @@ class CliMenu(BaseMenu):
     def setup_menu(self) -> None:
         self.menu_options = self.base_menu_options
         mappings = {
-            "DISPLAY MENU": self.display_menu,
             "QUERY LLM": self.query_llm,
             "UPLOAD DOCUMENT": self.upload_document,
             "VIEW DOCUMENTS": self.view_documents,

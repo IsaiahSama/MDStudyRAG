@@ -27,10 +27,6 @@ class BaseMenu(metaclass=ABCMeta):
     """
     
     base_menu_options: Dict[str, Dict[str, str]] = {
-        "DISPLAY MENU": {
-            "description": "Display the menu",
-            "function": None
-        },
         "QUERY LLM": {
             "description": "Query the LLM",
             "function": None
