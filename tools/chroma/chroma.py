@@ -96,3 +96,6 @@ class ChromaClient:
         if not self.db or not isinstance(self.db, chromadb.Collection): 
             raise InvalidCollectionException("Collection not initialized")
         return self.db.peek(limit=limit)
+    
+    def get_all_collection_names(self) -> List[str]:
+        return [coll.name for coll in self.client.list_collections()]

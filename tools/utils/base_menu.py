@@ -2,11 +2,21 @@
 
 from abc import ABCMeta, abstractmethod
 from typing import Dict
+from tools.chroma.chroma import ChromaClient
+from tools.gemini.geminiClient import GeminiClient
 
 class BaseMenu(metaclass=ABCMeta):
     """An abstract class with the definition for methods that any menu system used by the app should support.
     
-    Methods to be implemented:
+    Attributes:
+    
+        base_menu_options: (Dict[str, Dict[str, str]])
+        
+        chroma_client: ChromaClient
+        
+        gemini_client: GeminiClient
+    
+    Methods:
     
     display_menu(self)
     
@@ -56,6 +66,9 @@ class BaseMenu(metaclass=ABCMeta):
             "function": None
         }
     }
+    
+    chroma_client: ChromaClient
+    gemini_client: GeminiClient
     
     def __init__(self) -> None:
         pass

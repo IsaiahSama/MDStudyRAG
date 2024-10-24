@@ -4,6 +4,9 @@ import pyinputplus as pyip
 
 from typing import override, Dict
 from tools.utils.base_menu import BaseMenu
+from tools.chroma.chroma import ChromaClient
+from tools.gemini.geminiClient import GeminiClient
+
 
 
 class CliMenu(BaseMenu):
@@ -11,6 +14,10 @@ class CliMenu(BaseMenu):
     
     def __init__(self) -> None:
         super().__init__()
+        
+        # Setup the clients
+        self.chroma_client = ChromaClient()
+        self.gemini_client = GeminiClient()
         
         # Add the options to the menu
         self.setup_menu()
@@ -45,6 +52,7 @@ class CliMenu(BaseMenu):
 
     @override
     def view_documents(self) -> None:
+        print(self.chroma_client.get_all_collection_names())
         return super().view_documents()
 
     @override
