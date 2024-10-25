@@ -2,11 +2,19 @@
 
 import pyinputplus as pyip
 
+from os.path import exists
 from typing import override, Dict
-from tools.utils.base_menu import BaseMenu
-from tools.chroma.chroma import ChromaClient
-from tools.gemini.geminiClient import GeminiClient
+# My imports!
 
+try:
+    from tools import BaseMenu, loader, ChromaClient, GeminiClient, GeminiEmbeddingFunction, md_to_json
+except ImportError:
+    from tools.utils.base_menu import BaseMenu
+    from tools.utils import loader
+    from tools.chroma.chroma import ChromaClient
+    from tools.gemini.geminiClient import GeminiClient
+    from tools.gemini.embedding import GeminiEmbeddingFunction
+    from tools.md_to_json import md_to_json
 
 
 class CliMenu(BaseMenu):
@@ -48,19 +56,63 @@ class CliMenu(BaseMenu):
 
     @override
     def upload_document(self) -> None:
-        return super().upload_document()
+        def validate_path(path: str) -> bool:
+            if exists(path) and path.split(".")[-1] == "md":
+                return path
+            raise ValueError("Invalid path. Please enter a valid path to a markdown file.")
+        
+        doc_path = pyip.inputCustom(validate_path, "Enter the path to the document you would like to upload.\n:")
+        
+        title = pyip.inputStr("Fantastic! What should we title this collection? The title should reflect the nature of the content.\n:")
+        
+        # Helper function to use for displaying a loading screen!
+        def format_and_prepare_document(doc_path: str) -> str:
+            alpaca_json = md_to_json.md_to_alpaca_json(doc_path)
+            stringified_alpaca_json = md_to_json.stringify_alpaca_json(alpaca_json)
+            return stringified_alpaca_json
+        
+        ellipse = loader.LoadingSpinner()
+        formatter = loader.Loadable(format_and_prepare_document, doc_path)
+        
+        stringified_alpaca_json = ellipse.start("Formatting and preparing the document!", formatter)
+        
+        # Then, we can upload the alpaca json, after confirming the user wants to proceed.
+        proceed = pyip.inputYesNo("Are you sure you want to upload this document?\n:")
+        if not proceed: 
+            print("Returning to menu!")
+            return 
+        
+        self.chroma_client.get_or_create_collection(title, GeminiEmbeddingFunction, title)
+        self.chroma_client.add_items_to_collection(stringified_alpaca_json)
+        
+        print("Document uploaded!")
 
     @override
     def view_documents(self) -> None:
-        print(self.chroma_client.get_all_collection_names())
-        return super().view_documents()
+        print("Listing names of collections.\n---")
+        print(*self.chroma_client.get_all_collection_names(), sep="\n")
+        print("---")
+        
+    def select_a_document(self) -> str:
+        self.view_documents()
+        if not (collections := self.chroma_client.get_all_collection_names()):
+            print("No collections found. Please add a collection and try again.")
+            return ""
+
+        collection_name = pyip.inputMenu(collections, "Which collection would you like to perform actions on?\n", numbered=True)
+        return collection_name
 
     @override
     def update_document(self) -> None:
+        collection_name = self.select_a_document()
+        if not collection_name: return
         return super().update_document()
 
     @override
     def delete_document(self) -> None:
+        collection_name = self.select_a_document()
+        if not collection_name: return
+        self.chroma_client.delete_collection(collection_name)
         return super().delete_document()
 
     @override
