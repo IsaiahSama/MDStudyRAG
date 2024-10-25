@@ -26,7 +26,7 @@ chroma_client.get_or_create_collection("testing", GeminiEmbeddingFunction, "Cari
 
 # And store them in the database!
 
-# chroma_client.add_items_to_collection(stringified_alpaca_json)
+chroma_client.add_items_to_collection(stringified_alpaca_json)
 
 # Prepare the query!!!!!!!
 
