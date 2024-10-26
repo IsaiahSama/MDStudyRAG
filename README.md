@@ -10,6 +10,10 @@ This is MDStudyRag, a project developed by me, to take advantage of the fact tha
 4. Acquire a Gemini API key, and be sure to seet it in the `.env` file.
 5. Run `python main.py` to run the cli program.
 
+## Getting your API Key
+
+[Get your API Key Here](https://aistudio.google.com/app/apikey)
+
 ## ToDO (DONE)
 
 ~~Currently, I have not yet developed the CLI nor GUI interface to make it dynamic, but I am currently working on it.  However, if you want to test it, you can check the `test_pipeline.py` file, change the `md_file` variable, to point to the markdown file, change the `query` to reflect the question you want to ask, and then run `python test_pipeline.py`!~~
