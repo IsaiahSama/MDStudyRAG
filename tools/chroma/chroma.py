@@ -25,6 +25,10 @@ class ChromaClient:
         """
         self.db = self.client.get_or_create_collection(name=collection_name, embedding_function=embedding_function(title=embedding_title))
         return None
+    
+    def get_collection(self, collection_name: str) -> None:
+        self.db = self.client.get_collection(name=collection_name)
+        return None
 
     def add_items_to_collection(self, items: List[str]) -> None:
         """Adds the items to the collection initialized using the get_or_create_collection method

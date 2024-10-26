@@ -52,7 +52,49 @@ class CliMenu(BaseMenu):
     
     @override
     def query_llm(self) -> str:
-        return super().query_llm()
+        
+        # Ask the user what collection they want to query
+        print("Which collection would you like to query?")
+        if not (collection := self.select_a_document()):
+            return
+        
+        # Get the collection
+        
+        self.chroma_client.get_or_create_collection(collection, GeminiEmbeddingFunction, collection)
+        
+        # Ask the user for their query
+        print(f"Understood. What would you like to ask about {collection}")
+        query = pyip.inputStr()
+        
+        # Get the level for the query
+        print("What level of detail do you want for your response?")
+        prompt_level = pyip.inputChoice(["1", "2", "3"], prompt="Enter the level of detail you want for your response.\n(1 = Basic, 2 = Intermediate, 3 = Advanced)\n:", postValidateApplyFunc=lambda x: int(x))
+        
+        # Get the relevant context!
+        passages = self.chroma_client.query_collection(query, n_results=5)
+        context = ""
+        if not passages:
+            if prompt_level == 1:
+                print("Couldn't find relevant context, so will use basic prompt.")
+            else:
+                print("Couldn't find relevant context")
+                return
+        else:
+            context = ' '.join([f"PARTIALCONTEXT\n{passage}\nENDPARTIALCONTEXT\n" for passage in passages])
+        
+        # Prepare the prompt
+        prompt = self.gemini_client.make_prompt(query, context, prompt_level)
+        
+        print("Prompt: ", prompt)
+        
+        # Return the response
+        
+        loadable = loader.Loadable(self.gemini_client.prompt_model, prompt)
+        spinner = loader.LoadingSpinner()
+        
+        result = spinner.start("Asking your LLM!", loadable)
+        
+        print(f"\nYour Question: {query}\nModel Response:\n {result}\n")
 
     @override
     def upload_document(self) -> None:
@@ -82,7 +124,7 @@ class CliMenu(BaseMenu):
             print("Returning to menu!")
             return 
         
-        self.chroma_client.get_or_create_collection(title, GeminiEmbeddingFunction, title)
+        self.chroma_client.get_or_create_collection(title.lower().replace(" ", "_"), GeminiEmbeddingFunction, title)
         self.chroma_client.add_items_to_collection(stringified_alpaca_json)
         
         print("Document uploaded!")
@@ -91,10 +133,7 @@ class CliMenu(BaseMenu):
     def view_documents(self) -> List[str]:
         collections = self.chroma_client.get_all_collection_names()
         
-        if not collections:
-            print("No collections found. Please add a collection and try again.")
-
-        else:
+        if collections:
             print("Listing names of collections.\n---")
             print(*self.chroma_client.get_all_collection_names(), sep="\n")
             print("---")
@@ -107,7 +146,7 @@ class CliMenu(BaseMenu):
             print("No collections found. Please add a collection and try again.")
             return ""
 
-        collection_name = pyip.inputMenu(collections, "Which collection would you like to perform actions on?\n", numbered=True)
+        collection_name = pyip.inputMenu(collections, "Which collection would you like to perform actions on?\n", numbered=True, blank=True)
         return collection_name
 
     @override
@@ -120,14 +159,21 @@ class CliMenu(BaseMenu):
     def delete_document(self) -> None:
         collection_name = self.select_a_document()
         if not collection_name: return
+        confirm = pyip.inputYesNo("Are you sure you want to delete this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
+        
+        if not confirm: 
+            print("Aborting")
+            return 
+        
         self.chroma_client.delete_collection(collection_name)
-        return super().delete_document()
+        print("Collection deleted!")
 
     @override
     def clear_database(self) -> None:
         collections = self.view_documents()
         if not collections:
-            return 
+            print("No collections to delete.")
+            return
         
         print("Clearing the databse means deleting ALL of the following records:")
         confirm = pyip.inputYesNo("Are you sure you want to clear the database?\n:", postValidateApplyFunc=lambda x: x == 'yes')
