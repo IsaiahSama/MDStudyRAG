@@ -85,8 +85,6 @@ class CliMenu(BaseMenu):
         # Prepare the prompt
         prompt = self.gemini_client.make_prompt(query, context, prompt_level)
         
-        print("Prompt: ", prompt)
-        
         # Return the response
         
         loadable = loader.Loadable(self.gemini_client.prompt_model, prompt)
@@ -94,7 +92,18 @@ class CliMenu(BaseMenu):
         
         result = spinner.start("Asking your LLM!", loadable)
         
+        print("---")
         print(f"\nYour Question: {query}\nModel Response:\n {result}\n")
+        print("---")
+        
+        save_file = pyip.inputYesNo("Would you like to save this response to a file?\n:", postValidateApplyFunc=lambda x: x == 'yes')
+        if save_file:
+            file_path = "./result.txt"
+            
+            with open(file_path, "w") as fp:
+                fp.write(f"Question: {query}\n---\nPrompt: {prompt}\n---\nResponse: {result}")
+        else:
+            print("Okay!")
 
     @override
     def upload_document(self) -> None:
