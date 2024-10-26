@@ -3,7 +3,7 @@
 import pyinputplus as pyip
 
 from os.path import exists
-from typing import override, Dict
+from typing import List, override, Dict
 # My imports!
 
 try:
@@ -77,7 +77,7 @@ class CliMenu(BaseMenu):
         stringified_alpaca_json = ellipse.start("Formatting and preparing the document!", formatter)
         
         # Then, we can upload the alpaca json, after confirming the user wants to proceed.
-        proceed = pyip.inputYesNo("Are you sure you want to upload this document?\n:")
+        proceed = pyip.inputYesNo("Are you sure you want to upload this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
         if not proceed: 
             print("Returning to menu!")
             return 
@@ -88,14 +88,22 @@ class CliMenu(BaseMenu):
         print("Document uploaded!")
 
     @override
-    def view_documents(self) -> None:
-        print("Listing names of collections.\n---")
-        print(*self.chroma_client.get_all_collection_names(), sep="\n")
-        print("---")
+    def view_documents(self) -> List[str]:
+        collections = self.chroma_client.get_all_collection_names()
+        
+        if not collections:
+            print("No collections found. Please add a collection and try again.")
+
+        else:
+            print("Listing names of collections.\n---")
+            print(*self.chroma_client.get_all_collection_names(), sep="\n")
+            print("---")
+        
+        return collections
         
     def select_a_document(self) -> str:
-        self.view_documents()
-        if not (collections := self.chroma_client.get_all_collection_names()):
+        collections = self.view_documents()
+        if not (collections):
             print("No collections found. Please add a collection and try again.")
             return ""
 
@@ -117,7 +125,20 @@ class CliMenu(BaseMenu):
 
     @override
     def clear_database(self) -> None:
-        return super().clear_database()
+        collections = self.view_documents()
+        if not collections:
+            return 
+        
+        print("Clearing the databse means deleting ALL of the following records:")
+        confirm = pyip.inputYesNo("Are you sure you want to clear the database?\n:", postValidateApplyFunc=lambda x: x == 'yes')
+        
+        if confirm:
+            ellipse_loader = loader.LoadingEllipse()
+            loadable = loader.Loadable(self.chroma_client.delete_all_collections)
+            ellipse_loader.start("Clearing the database!", loadable)
+            self.view_documents()
+        else:
+            print("Aborting")
 
     @override
     def exit_program(self) -> None:

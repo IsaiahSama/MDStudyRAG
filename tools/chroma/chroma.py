@@ -99,3 +99,9 @@ class ChromaClient:
     
     def get_all_collection_names(self) -> List[str]:
         return [coll.name for coll in self.client.list_collections()]
+    
+    def delete_all_collections(self) -> None:
+        for coll in self.client.list_collections():
+            self.client.delete_collection(coll.name)
+        return None
+        

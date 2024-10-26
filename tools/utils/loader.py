@@ -56,6 +56,7 @@ class LoadingEllipse:
         obj.start()
         
         print(message)
+        print("Loading", end="")
         while not obj.completed and not obj.error:
             self.count += 1
             print(".", end="", flush=True)
