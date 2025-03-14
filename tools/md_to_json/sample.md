@@ -81,7 +81,7 @@ Databases are replicated to various sites and inter-connected via a network.
 
 This improves database perofrmance and security.
 
-### Transactional vs Decision Supposrt Systems.
+### Transactional vs Decision Support Systems.
 
 Database Management Systems, are sometimes classified according to the expected **type** and exxtent of use. IN this case, a distrinction is made between **transactional databases** and **decision support systems**.
 

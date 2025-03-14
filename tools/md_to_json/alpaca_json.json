@@ -1,527 +1,527 @@
 [
     {
-        "instruction": "Can you clarify Introduction to DBMS",
-        "input": "Data Vs Information From Traditional Files to Databases Databases Why databases? Database Architectures & Major Types of Databases. Types of Databases Database Management Systems Major Functions of DBMS Levels of Data Representation. Data Independence",
-        "output": ""
+        "instruction": "Give me information about Introduction to DBMS",
+        "input": "Current Context: Introduction to DBMS, Subheadings: Data Vs Information, From Traditional Files to Databases, Databases, Why databases?, Database Architectures & Major Types of Databases, Types of Databases, Database Management Systems, Major Functions of DBMS, Levels of Data Representation, Data Independence",
+        "output": "Not enough information, but these are the related topics: Data Vs Information, From Traditional Files to Databases, Databases, Why databases?, Database Architectures & Major Types of Databases., Types of Databases, Database Management Systems, Major Functions of DBMS, Levels of Data Representation., Data Independence"
     },
     {
-        "instruction": "Can you clarify Database Design",
-        "input": "Data Models Business Rules Historical Database Models.",
+        "instruction": "Give me information about Database Design",
+        "input": "Current Context: Database Design, Subheadings: Data Models, Business Rules, Historical Database Models",
         "output": "- Basic Components of Data Models\n- Business Rules\n- Historical database Models\n- Hierarchiacal Model\n- Network or CADASYL model\n- Relational Model\n- Object Oriented - Database\n- Hybrid Relational / Object Oriented\n- File Systems versus Databases\n\n\n"
     },
     {
-        "instruction": "Tell me about DB Design Intro & Conceptual Modelling",
-        "input": "Database Design Database System Life Cycle Design and Development Process. The Conceptual Data Model Dependencies in ERDs (Weak Entities)",
-        "output": ""
+        "instruction": "Give me information about DB Design Intro & Conceptual Modelling",
+        "input": "Current Context: DB Design Intro & Conceptual Modelling, Subheadings: Database Design, Database System Life Cycle, Design and Development Process, The Conceptual Data Model, Dependencies in ERDs (Weak Entities)",
+        "output": "Not enough information, but these are the related topics: Database Design, Database System Life Cycle, Design and Development Process., The Conceptual Data Model, Dependencies in ERDs (Weak Entities)"
     },
     {
-        "instruction": "Can you explain The Conceptual process",
-        "input": "Entities - The things of interest Attributes - Their Characterisitics Relationships - Their Associations.",
+        "instruction": "What is The Conceptual process",
+        "input": "Current Context: The Conceptual process, Subheadings: Entities - The things of interest, Attributes - Their Characterisitics, Relationships - Their Associations",
         "output": "Three primary questions:\n\n- What are the entities for which I am collecting information?\n    - They must play a necessary role in the system.\n    - Each entity with become a **table** in the (relational) logical design.\n\n- What are the attrirbutes of these entities?\n    - Select primary key attributes.\n    - Each attribute will become a **column** in the (relational) logical design. \n\n- What are the **relationships** between these entities?\n    - Determine the degree and type (1:1, !:M, M:M)\n    - Attempt to decompose any M:M relationships identified.\n    - Each relationship will become either a **column** or a **new table** in the logical design.\n    - We don't get to choose. It depends on the nature of the relationships\n\n"
     },
     {
         "instruction": "Can you clarify Decomposing Our ERD",
-        "input": "",
+        "input": "Current Context: Decomposing Our ERD, ",
         "output": "Given a Many to Many relationship, we need to decompose (add a 'bridge' table).\n\nThis refers to adding a table between the 2, creating 2 1:M relationships.\n\nExample:\n\nCourse (M) => Student (M)\n\nWill be broken down into:\n\nCourse (1) => Registration (Many) <= Student (1) />\n\n"
     },
     {
-        "instruction": "Give me information about Weak Entities",
-        "input": "",
+        "instruction": "Can you explain Weak Entities",
+        "input": "Current Context: Weak Entities, ",
         "output": "This is one who's existence is dependent on the existence of another entity.\n\nCan only be identified uniquely by considering the primary key of another entity.\n\nExample:\n\nEmployee (1) => Dependent(M)\n\nDependent can only be uniquely identified through the existence of the Employee entry.\n\n"
     },
     {
-        "instruction": "Tell me about Design and Development Process",
-        "input": "Conceptual Design Logical Design Physical Design",
-        "output": ""
+        "instruction": "Give me information about Design and Development Process",
+        "input": "Current Context: Design and Development Process, Subheadings: Conceptual Design, Logical Design, Physical Design",
+        "output": "Not enough information, but these are the related topics: Conceptual Design, Logical Design, Physical Design"
     },
     {
-        "instruction": "Tell me about Relational Databases.",
-        "input": "",
+        "instruction": "Can you explain Relational Databases.",
+        "input": "Current Context: Relational Databases., ",
         "output": "A **relation** on sets D1, D2, ..., Dn is a subset of the Cartesian product D1 x D2 x .... x Dn.\n\n"
     },
     {
-        "instruction": "Can you explain Relations",
-        "input": "Properties of Relations Relational DML's",
+        "instruction": "What is Relations",
+        "input": "Current Context: Relations, Subheadings: Properties of Relations, Relational DML's",
         "output": "By convention, a relation is written using the format:\n\nREL_NAME (attrib-1, attrib-2, ..., attrib-n)\n\nExample:\n\nTEACHER (Name, FacNum, Rank,...)\n\n- TEACHER is called a **schema** or **intension**\n\n- A table with actual values is called an **instance table**, **instance**, or **extension**\n\n**intension** -> meaning\n\n\n"
     },
     {
         "instruction": "Can you clarify Conceptual Model To Relational Schema",
-        "input": "The process The Data Dictionary",
-        "output": ""
+        "input": "Current Context: Conceptual Model To Relational Schema, Subheadings: The process, The Data Dictionary",
+        "output": "Not enough information, but these are the related topics: The process, The Data Dictionary"
     },
     {
         "instruction": "Can you clarify Relational Integrity Constraints",
-        "input": "Entity (Key) Constraints Domain Constraints Referential Integrity Constraints",
+        "input": "Current Context: Relational Integrity Constraints, Subheadings: Entity (Key) Constraints, Domain Constraints, Referential Integrity Constraints",
         "output": "**Constraints**: These are conditions which must be followed.\n\nEvery relation (table) has somee condition which must hold true to be a valid value.\n\nTypes:\n\n- Entity Constraints\n- Domain Constraints\n- Referential Integrity Constraints\n\n"
     },
     {
-        "instruction": "Can you explain Key Attributes",
-        "input": "Super Key Candidate Key Primary Key Secondary / Alternate Key Composite Key Foreign Key",
+        "instruction": "What is Key Attributes",
+        "input": "Current Context: Key Attributes, Subheadings: Super Key, Candidate Key, Primary Key, Secondary / Alternate Key, Composite Key, Foreign Key",
         "output": "We need keys to uniquely identify each record in your table.\nWithout them, duplicate or incorrect records may be returned.\n\n| Key | Can Have redundancies |\n| --- | --------------------- |\n| Sk  |             Y         | \n| CK  |             x         |\n| PK  |             x         |\n\n"
     },
     {
-        "instruction": "Give me information about Determining Functional Dependencies",
-        "input": "Inference Rules For Functional Dependencies. Fully Functional Dependencies Closure of an Attribute Finding Candidate Keys Normalization Insertion Anomalies. Update Anomalies Deletion Anomalies Normalization Process Normal Forms",
+        "instruction": "Tell me about Determining Functional Dependencies",
+        "input": "Current Context: Determining Functional Dependencies, Subheadings: Inference Rules For Functional Dependencies, Fully Functional Dependencies, Closure of an Attribute, Finding Candidate Keys, Normalization, Insertion Anomalies, Update Anomalies, Deletion Anomalies, Normalization Process, Normal Forms",
         "output": "A functional dependency is a relationship that exists when one attribute uniequely determines another attribute.\n\nIf an attribute A uniquely determines an attribute B, we say A determines B (denotated as A -> B) where A is the 'determinant'\n\n"
     },
     {
-        "instruction": "Can you clarify Data Vs Information",
-        "input": "",
+        "instruction": "Can you explain Data Vs Information",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Data Vs Information, ",
         "output": "**Data** are a collection of raw facts, measurements or statitistics, often used as a foundation for reasoning, discussion or calculation to produce information.\n\n**Information** is data that has been processed and changed into a meaningful and useful form for interpretation.\ni.e: Information is data that has been contextualized via processess such as aggregation, manipulation and organization.\n\n\nInformation is affect by:\n\n- Time (Timeliness, Currency, Frequency)\n- Content (Accuracy, Relevance, Completeness)\n- Form (Clarity, Detail, Order, Presentation)\n\n"
     },
     {
-        "instruction": "What is From Traditional Files to Databases",
-        "input": "Problems with Traditional File Systems",
+        "instruction": "Can you clarify From Traditional Files to Databases",
+        "input": "Previous Context: Introduction to DBMS, Current Context: From Traditional Files to Databases, Subheadings: Problems with Traditional File Systems",
         "output": "**Manual File Systems** are generally made up of file folders, each labelled and kept in physical storage.\n\n**Computerized File Systems** were introduced to better handle the increased volume of data and files.\n\n"
     },
     {
-        "instruction": "Give me information about Databases",
-        "input": "",
+        "instruction": "Can you explain Databases",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Databases, ",
         "output": "*Database* may have the following meanings:\n\n1. A database is an organized collection of stored data.\n2. A database is a shared collection of logically related data, designed to meet the information needs of multiple users in an organization.\n3. A database is a shared, integrated computer structure that houses a collection of raw facts and metadata.\n4. A database is a repository for stored data. It is *integrated* and *shared*.\n\nThe main definition we want to use is: A **database** is an organized and structured collection of data, composed of **fields**, **records** and **files**.\n\n"
     },
     {
-        "instruction": "What is Why databases?",
-        "input": "Advantages:",
+        "instruction": "Give me information about Why databases?",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Why databases?, Subheadings: Advantages:",
         "output": "With databases, the files are designed to meet the needs of the enterprise and all application programs.\n\n"
     },
     {
         "instruction": "Give me information about Database Architectures & Major Types of Databases.",
-        "input": "Centralized Distributed Transactional vs Decision Supposrt Systems.",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Database Architectures & Major Types of Databases., Subheadings: Centralized, Distributed, Transactional vs Decision Support Systems",
         "output": "There are 2 generic database architectures: **centralized** and **distributed**\n\n"
     },
     {
-        "instruction": "Tell me about Types of Databases",
-        "input": "Operational Databases Data Warehouses External databases",
+        "instruction": "Can you explain Types of Databases",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Types of Databases, Subheadings: Operational Databases, Data Warehouses, External databases",
         "output": "We will examine the following types of databases:\n\n- Operational Databases\n- Data Warehouses\n- External Databases\n\n"
     },
     {
-        "instruction": "Can you explain Database Management Systems",
-        "input": "Components of a DBMS Components of DBMS Environment",
+        "instruction": "Can you clarify Database Management Systems",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Database Management Systems, Subheadings: Components of a DBMS, Components of DBMS Environment",
         "output": "A ***database management system*** (DBMS) is software designed to aid increating, maintaining and utilizing large collections of data. It serves as a software interface between users and databases and therefore, amnages the structure of and controls access to the data.\n\n"
     },
     {
-        "instruction": "Can you explain Major Functions of DBMS",
-        "input": "Database Development Database Interrogation Database Maintenance Multi-user Access Control Application Development",
+        "instruction": "What is Major Functions of DBMS",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Major Functions of DBMS, Subheadings: Database Development, Database Interrogation, Database Maintenance, Multi-user Access Control, Application Development",
         "output": "The major functions of a database management system are expressed as:\n\n- Database Development\n- Database Interrogation\n- Database Maintenance\n- Multi-User Access Control\n- Application Development\n\n"
     },
     {
-        "instruction": "Tell me about Levels of Data Representation.",
-        "input": "External Level Conceptual Level Internal Level",
+        "instruction": "Can you explain Levels of Data Representation.",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Levels of Data Representation., Subheadings: External Level, Conceptual Level, Internal Level",
         "output": "There are 3 main levels of abstractions to consider when specifying a database structure:\n\n1. External Level (View Level)\n2. Conceptual Level (Logical Level)\n3. Internal Level (Physical Level)\n\n"
     },
     {
         "instruction": "Can you clarify Data Independence",
-        "input": "",
+        "input": "Previous Context: Introduction to DBMS, Current Context: Data Independence, ",
         "output": "maan\nThis is fundamental to database theory. It gives the Database Admin (DBA) the freedom of changing both the physical and logical aspects of the database system without disturbing the applications built on the External Level.\n"
     },
     {
-        "instruction": "Tell me about Data Models",
-        "input": "Components",
+        "instruction": "What is Data Models",
+        "input": "Previous Context: Database Design, Current Context: Data Models, Subheadings: Components",
         "output": "- Collection of concepts for describing the structure of data.\n- Representation of data and its interrelationships which describe ideas about the real world.\n\n- Help to reduce complexity and aid understandinig between desingers, developers and end users.\n- Allows data to be given structure and manipulated\n\n\n"
     },
     {
-        "instruction": "What is Business Rules",
-        "input": "",
+        "instruction": "Can you clarify Business Rules",
+        "input": "Previous Context: Database Design, Current Context: Business Rules, ",
         "output": "- A business rule is a statement which allows you to determine the entities, attributes, relationships and constraints on the model you are using.\n\n- This is a statmeent which defines some constraint on a particular aspect of a database.\n\n- Includes descriptions of:\n\t- Policies, procedures or processes within the organization which governs how it operates;\n\t- Operations and transactions\n\t- The characteristics of data.\n\nMany sources of business rules, and these include but are not limited to:\n\n- Company managers and end-users\n- Policy makers\n- Written documents\n- Interviews with end users\n\nDuring the database design process, guided by business rules:\n\n- **Nouns** become **entities**\n- **Verbs** become entity **relationships**\n\nRelationships are bi-directional and may be identified by asking:\n\n- How many instances of A are related to one instance of B?\n- How many instances of B are related to one instance of A?\n\n"
     },
     {
-        "instruction": "Can you clarify Historical Database Models.",
-        "input": "Hierarchical Model Network Model Relational Model Object-Oriented Model Hybird Relational / Object Oriented",
+        "instruction": "What is Historical Database Models.",
+        "input": "Previous Context: Database Design, Current Context: Historical Database Models., Subheadings: Hierarchical Model, Network Model, Relational Model, Object-Oriented Model, Hybird Relational / Object Oriented",
         "output": "Types of models:\n\n- Hierarrchical Model\n- Network Model\n- Relational Model\n- Object-oriented Model\n\nNote: This course will focus on the Relational Model\n\n"
     },
     {
-        "instruction": "What is Database Design",
-        "input": "",
+        "instruction": "Give me information about Database Design",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, Current Context: Database Design, ",
         "output": "**Database Design** is the process of developing a database structure from user requirements.\n\nThe process beings with **analysis** of those requirements and goes thrrough a series of refinements to produce the desired database.\n\n"
     },
     {
-        "instruction": "Can you explain Database System Life Cycle",
-        "input": "",
+        "instruction": "Tell me about Database System Life Cycle",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, Current Context: Database System Life Cycle, ",
         "output": "- Analysis\n- Conceptual Model (Construction of the **Entity-Relationship Diagrams** ERD's based on analysis)\n- Logical Model (Conversion of conceptual model to a logical schema)\n- Physical Model (Implementation of database based on the logical schema)\n- Testing\n- Maintenance\n\n"
     },
     {
-        "instruction": "Give me information about Design and Development Process.",
-        "input": "",
+        "instruction": "Can you explain Design and Development Process.",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, Current Context: Design and Development Process., ",
         "output": "The **Conceptual Data Model** is used to define **WHAT** things of the 'real world' are to be modeled. It involves the analysis of data requirements to determine what data is important and should be maintained.\n\nDefines: Entities, Attributes and Relationships.\n\nThe **Logical Data Model** is used to define **HOW** to best represent the characterisitics of these things we are interested in and the associations between them.\n\nThis is influenced by the chosen database theoretical framework (RDMS, OBject Oriented, Etc), and built using a **Database Schema**\n\nThis process involves converting the conceptual model to a logical schema using the sleelcted logical data model (e.g. relational), construct the data dictionary and normalize the attributes.\n\nThe **Physical Data Model** implements or entities, attributes and relations by mapping the logical model onto a physical system.\n\n"
     },
     {
         "instruction": "Can you clarify The Conceptual Data Model",
-        "input": "The Entity-Relationship (E-R) Model",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, Current Context: The Conceptual Data Model, Subheadings: The Entity-Relationship (E-R) Model",
         "output": "This is the design of the entire information content of the database, and is the consolidation of all user requirements in a DBMS-independent information structure or schema.\n\n"
     },
     {
-        "instruction": "Tell me about Dependencies in ERDs (Weak Entities)",
-        "input": "",
+        "instruction": "Can you clarify Dependencies in ERDs (Weak Entities)",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, Current Context: Dependencies in ERDs (Weak Entities), ",
         "output": "A **data dependency** or **constraint** is a rule or condition that the data instances must obey.\n\n1) **Existence Dependency** can occur between 2 entities. If X and Y are entities and each instance of Y must have a corresponding instance of X, then Y is **existence dependent** on X. As such, a Y entity cannot exist without some X entity. \n\n2) **Identitfier Dependency** is a special type of dependency that occurs when the weak entitiy set does not have a candidate key, and its instances are indistinguishable without a relationship with another entity.\n"
     },
     {
         "instruction": "Tell me about Entities - The things of interest",
-        "input": "",
+        "input": "Previous Context: The Conceptual process, Current Context: Entities - The things of interest, ",
         "output": "What things am I collecting information about?\n\n- Student\n- Course\n- Lecturer\n- Department\n- Faculty\n\nThese will be the initial set of entitites - we may find more as we work.\n\n"
     },
     {
-        "instruction": "What is Attributes - Their Characterisitics",
-        "input": "",
+        "instruction": "Tell me about Attributes - Their Characterisitics",
+        "input": "Previous Context: The Conceptual process, Current Context: Attributes - Their Characterisitics, ",
         "output": "What pieces of information do i want to store for each entity?\n\n- Student: StudentID, Name, Age, Gender, Phone, Address, Email\n\n- Course: CourseID, Name, Lecturuer, Schedule, Meeting location, Pre-requisite\n\n- Lecturer: LectureID, Name, Age, Gender, Phone, Address, Email\n\n- Department: DeptID, Name, Dept_Head, Courses, Staff Members\n- Faculty: FacultyID, Name, Fac_Head, Departments\n\n"
     },
     {
-        "instruction": "Can you clarify Relationships - Their Associations.",
-        "input": "",
+        "instruction": "What is Relationships - Their Associations.",
+        "input": "Previous Context: The Conceptual process, Current Context: Relationships - Their Associations., ",
         "output": "How are the entities related?\n\n- A student takes one or more courses.\n- A lecturer teaches one or more ecourses.\n- A department offers one or more courses.\n- A lecturer works in one department.\n- A department employes one or more lecturers.\n- A faculty has one or more departments.\n\nShould be described:\n- Qualitatively\n- Quantitatively.\n\nERD (Entity Relationship Diagrams) can be used to help visualize\n\n- Attributes are bubbles\n- Entities are rectangles\n- Include relationships\n\n\nGiven a 1:M (1 to many) relationship, we need to **add a foreign key column** to the table on the \"many\" side of the relationship.\n\n"
     },
     {
-        "instruction": "Can you clarify Conceptual Design",
-        "input": "",
+        "instruction": "Can you explain Conceptual Design",
+        "input": "Previous Context: Design and Development Process, Current Context: Conceptual Design, ",
         "output": "- Analysis of business requirements.\n- Construction of ERD's based on analysis\n\n"
     },
     {
-        "instruction": "Give me information about Logical Design",
-        "input": "",
+        "instruction": "Tell me about Logical Design",
+        "input": "Previous Context: Design and Development Process, Current Context: Logical Design, ",
         "output": "- Conversion of ERD to Logical Model\n- Functional Dependencies\n- Normalization\n\nDefines the database structures:\n\n- The tables\n- The fields in each tables\n- The relationships between these tables and fields.\n\nInfluenced by a chosen database theoretical framework.\n\nThis involves:\n\n- Converting the conceptual model to logical schemea using the selected logical data model.\n- Construct the data dictionary\n- Normalize the attributes\n\n"
     },
     {
-        "instruction": "What is Physical Design",
-        "input": "",
+        "instruction": "Can you explain Physical Design",
+        "input": "Previous Context: Design and Development Process, Current Context: Physical Design, ",
         "output": "- Implementation based on the logical model\n- Testing to ensure it meets requirements\n\n"
     },
     {
-        "instruction": "Can you clarify Properties of Relations",
-        "input": "",
+        "instruction": "What is Properties of Relations",
+        "input": "Previous Context: Relations, Current Context: Properties of Relations, ",
         "output": "- Entries in columns are atomic (No repeating groups)\n- Entries in columns are from the same domain.\n- Each row is unique\n- Order of columns is insignificant\n\n\n"
     },
     {
         "instruction": "Can you explain Relational DML's",
-        "input": "",
+        "input": "Previous Context: Relations, Current Context: Relational DML's, ",
         "output": "- Relational Data Manipulation Languages\n\nDML is used to query the relationships in a database. There are 2 main kinds\n\n    - Relational Algebra\n    - Relational Calculus\n\n- The typical Relational Database commands are:\n    - Projection (on columns / fields)\n    - Selection (on rows / records)\n    - Join (On tables / relations)\n\n"
     },
     {
-        "instruction": "Can you clarify The process",
-        "input": "Representing Entities Representing Relationships Normalize The Relations",
-        "output": "ERD -> Appropriate relational sYOU tructure.\nThe structure is then fine-tuned to ensure efficiency during the implementation (and operation) phase.\n\n\nRepresent Entities -> Represent Relationships -> Normalize Relations (Refinement)\n\n"
+        "instruction": "Tell me about The process",
+        "input": "Previous Context: Conceptual Model To Relational Schema, Current Context: The process, Subheadings: Representing Entities, Representing Relationships, Normalize The Relations",
+        "output": "ERD -> Appropriate relational structure.\nThe structure is then fine-tuned to ensure efficiency during the implementation (and operation) phase.\n\n\nRepresent Entities -> Represent Relationships -> Normalize Relations (Refinement)\n\n"
     },
     {
-        "instruction": "What is The Data Dictionary",
-        "input": "",
+        "instruction": "Give me information about The Data Dictionary",
+        "input": "Previous Context: Conceptual Model To Relational Schema, Current Context: The Data Dictionary, ",
         "output": "This provides details of all tables in the user / designer-created database.\n\nContains (at least) all the attribute names and characterisitcs for each of the tables. It contains metadata as well.\n\nHelps a database user in:\n\n- Communicating with other users.\n- Controlling data elementins in a simple way\n- Reducing data redundancy and inconsistency.\n- Determining the impact of changes to data elements on the whole database.\n- Centralizing the control of data elements as an aid in database design.\n\n"
     },
     {
         "instruction": "Tell me about Entity (Key) Constraints",
-        "input": "",
+        "input": "Previous Context: Relational Integrity Constraints, Current Context: Entity (Key) Constraints, ",
         "output": "A key attribute in a relation must uniquely identify distinct tuples (records).\n\ni.e, each record MUST contain a **PRIMARY KEY**\n\nNote: Key attributes are unique identifiers which cannot contain null values.\n\nNote: If there are more than one fields that can be the primary key, these are referred to as **candidate keys**.\n\n"
     },
     {
-        "instruction": "Can you explain Domain Constraints",
-        "input": "",
+        "instruction": "Tell me about Domain Constraints",
+        "input": "Previous Context: Relational Integrity Constraints, Current Context: Domain Constraints, ",
         "output": "<b style='color:red'> **Each attribute will have a specific range of values** </b>\n\n"
     },
     {
-        "instruction": "Tell me about Referential Integrity Constraints",
-        "input": "",
+        "instruction": "Can you clarify Referential Integrity Constraints",
+        "input": "Previous Context: Relational Integrity Constraints, Current Context: Referential Integrity Constraints, ",
         "output": "**A record cannot be removed from the parent table if there are records in the child table referring to it**\n\n**A record cannot be added to a child table if there is no existing parent record for the child record to refer to**\n\nNote: Used to prevent the presence of **orpahn records** in tables.\n\n"
     },
     {
         "instruction": "Give me information about Super Key",
-        "input": "",
+        "input": "Previous Context: Key Attributes, Current Context: Super Key, ",
         "output": "A super key is a set of attributes used to uniquely identity each record in a table.\n\nIt specifies that no two records can have the same value for a super key value. The key value will not be repeated.\n\nMay contain redundant attributes.\n\n"
     },
     {
-        "instruction": "Give me information about Candidate Key",
-        "input": "",
+        "instruction": "Can you explain Candidate Key",
+        "input": "Previous Context: Key Attributes, Current Context: Candidate Key, ",
         "output": "These are a subset of your super key. THis is a super key **without** redundant attributes. \n\nCandidate keys are a minimal set of attributes used for the unique identification of records.\n\n"
     },
     {
-        "instruction": "Give me information about Primary Key",
-        "input": "",
+        "instruction": "Tell me about Primary Key",
+        "input": "Previous Context: Key Attributes, Current Context: Primary Key, ",
         "output": "A primary key is a candidate key which has been selected as being most appropriate to be the main key for a table.\n\nPrimary Keys:\n\n- Contain unique Values\n- Must never be null\n- Uniquely identify records in a table\n- Are mandatory for every table\n\n"
     },
     {
-        "instruction": "Tell me about Secondary / Alternate Key",
-        "input": "",
+        "instruction": "Give me information about Secondary / Alternate Key",
+        "input": "Previous Context: Key Attributes, Current Context: Secondary / Alternate Key, ",
         "output": "A table may have multiple candidate keys.\n\nOnce one of the candidates has beenn selected as the primary key, all remaining candidadate keys are deemed as being **secondary** or **alternate keys**.\n\nCandidate keys not selected as the primary key are secondary / alternate keys\n\n"
     },
     {
-        "instruction": "Give me information about Composite Key",
-        "input": "",
+        "instruction": "Can you explain Composite Key",
+        "input": "Previous Context: Key Attributes, Current Context: Composite Key, ",
         "output": "A key made up of multiple attributes.\n\nMay also be called a **compound** or **concactenated key**\n\n\n"
     },
     {
         "instruction": "Give me information about Foreign Key",
-        "input": "",
+        "input": "Previous Context: Key Attributes, Current Context: Foreign Key, ",
         "output": "A key which identifies or defines a relationship between two tables.\n\nResides in one table, and is used to refer to the primary key in the other tbale.\n\n1:M relationship:\n\nForeign Key's also used to ensure referential integrity constraints and prevent orphan records\n\n\n"
     },
     {
-        "instruction": "Can you explain Inference Rules For Functional Dependencies.",
-        "input": "Reflexivity Augmentation Transitivity Additive / Union Rule Pseudotransitive Rule Productive Rule",
-        "output": ""
+        "instruction": "What is Inference Rules For Functional Dependencies.",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Inference Rules For Functional Dependencies., Subheadings: Reflexivity, Augmentation, Transitivity, Additive / Union Rule, Pseudotransitive Rule, Productive Rule",
+        "output": "Not enough information, but these are the related topics: Reflexivity, Augmentation, Transitivity, Additive / Union Rule, Pseudotransitive Rule, Productive Rule"
     },
     {
         "instruction": "Tell me about Fully Functional Dependencies",
-        "input": "",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Fully Functional Dependencies, ",
         "output": "Rule: If X -> Y then Y is fully functional dependent on X if it cannot be determined by any of the subsets of X\n\n"
     },
     {
-        "instruction": "Can you clarify Closure of an Attribute",
-        "input": "",
+        "instruction": "Tell me about Closure of an Attribute",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Closure of an Attribute, ",
         "output": "The closure of an attribute is the set of attributes which can be determined by that attributes.\n\nThe closure of attribute A is denoted as *A+*\n\nAssume R(A, B, C, D) with functional dependencies: A -> B, B -> D and C -> B\n\nThe closure of A:\n\nA -> A by Reflexivity\n\nA -> A, B since A -> B\n\nA -> A, B, D since B -> D (transivity)\n\nTherefore the closure of A is A+:{A, B, D}\n\nTo be a valid candidate, the attribute must be able to determine every other attribute\n\n"
     },
     {
         "instruction": "Can you explain Finding Candidate Keys",
-        "input": "",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Finding Candidate Keys, ",
         "output": "Assume relation R(A, B, C, D, E, F) and functional dependecnies: A -> C , C -> D, D -> B, E -> F. Find a possible candidate key.\n\nAttributes C, D, B and F can be determined.\n\nThis is because each of these appear on the right hand side of a functional dependency.\n\nIf it cannot be determined then it will be part of the determinemant. Therefore, AE is a candidate.\n\nDetermining the closure of AE:\n\nAE -> A, E                  Through Reflexivity\n\nAE -> A, E, C               since A -> C\n\nAE -> A, E, C, D            since C -> D\n\nAE -> A, E, C, D, B         since D -> B\n\nAE -> A, E, C, D, B, F      since E -> F\n\nTherefore (AE) is minimal, and AE is a candidate key.\n\nAE is minimal, as you cannot separate them and it still function as a key.\n\n\n"
     },
     {
         "instruction": "Give me information about Normalization",
-        "input": "Motivation Types of Data Anomalies",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Normalization, Subheadings: Motivation, Types of Data Anomalies",
         "output": "Process of obtaining \"stable\" groupings of attributes into relations bby decomposing a table into smaller, simpler tables.\n\nBreaks up table into more than one table topo reduce redundancy and make it more efficient.\n\nAims:\n\n- Minimize data anomalies and the presence of null values in relational tables.\n- To minimize the number of relational tables that are created.\n\n"
     },
     {
         "instruction": "Can you explain Insertion Anomalies.",
-        "input": "",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Insertion Anomalies., ",
         "output": "- Data redundancy increases the possibility of data entry errors and inconsistencies between new and existing data.\n\n\nExample: \n- Insert a new record for student S2 to take CS420 database Sys.\n\n"
     },
     {
-        "instruction": "Tell me about Update Anomalies",
-        "input": "",
-        "output": ""
+        "instruction": "Give me information about Update Anomalies",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Update Anomalies, ",
+        "output": "Not enough information, but these are the related topics: "
     },
     {
-        "instruction": "Can you clarify Deletion Anomalies",
-        "input": "",
-        "output": ""
+        "instruction": "What is Deletion Anomalies",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Deletion Anomalies, ",
+        "output": "Not enough information, but these are the related topics: "
     },
     {
         "instruction": "Can you explain Normalization Process",
-        "input": "",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Normalization Process, ",
         "output": "- Used to remove unwanted redundancies and both partial and transitive dependencies from database design.\n\nThis has a series of *normal forms* to remove specific types of dependencies to ensure that databases are normalized correctly.\n\n- 1NF\n- 2NF\n- 3NF\n- BCNF (Boyce-Codd Normal Form)\n- 4NF\n- 5NF\n\n Generally, you will commonly see First Normal Form to Third Normal Form being used.\n\n 4NF and FnF rarely seen as they can make a database too *granular* and cause problems when attempting to retrieve data.\n\n Granularity results in complex query commands being written to join many tables in the data retrieval process\n\n\n"
     },
     {
         "instruction": "What is Normal Forms",
-        "input": "First Normal Forms. Second normal forms Third Normal Form",
+        "input": "Previous Context: Determining Functional Dependencies, Current Context: Normal Forms, Subheadings: First Normal Forms, Second normal forms, Third Normal Form",
         "output": "1NF - Remove Repeating Groups\n2NF - Remove partial Dependencies\n3NF - Remove Transitive Dependencies\n\n\n"
     },
     {
-        "instruction": "What is Problems with Traditional File Systems",
-        "input": "",
+        "instruction": "Give me information about Problems with Traditional File Systems",
+        "input": "Previous Context: Introduction to DBMS, From Traditional Files to Databases, Current Context: Problems with Traditional File Systems, ",
         "output": "A file consists of **records**. Each **entity** about which data is stored has one record.\nEach record of a file has the same **fields**.\nA field (attribute) describe the record.\n\n\nThe issue with traditional files, is that data redundancy was more common. So if a change needed to be made for one record, a search would have to be conducted to reflect the change across all records. I.E, there was no centralized system or source of truth.\n\nThe basic problems are as follows:\n\n- *Structural Dependence*\n- *Data Dependence*\n- *Data Redundancy*\n- *Limited Data Sharing & Inadequate Security*\n- *Not suitable for Ad Hoc Queries*\n- *Excessive Program Maintenance*\n- *Complex System administration*\n\n"
     },
     {
-        "instruction": "Give me information about Advantages:",
-        "input": "",
+        "instruction": "What is Advantages:",
+        "input": "Previous Context: Introduction to DBMS, Why databases?, Current Context: Advantages:, ",
         "output": "- Reduced Structural Dependence\n- Reduced Data dependence\n- Minimal Data Redundancy\n- Consolidated Update Procedures\n- Improved Data sharing and access.\n- Reduced Program Maintenance\n- Improved Productivity of Application Development\n- Reduced Data Retrieval Times\n\n"
     },
     {
-        "instruction": "What is Centralized",
-        "input": "",
+        "instruction": "Can you clarify Centralized",
+        "input": "Previous Context: Introduction to DBMS, Database Architectures & Major Types of Databases., Current Context: Centralized, ",
         "output": "This architecture encourages all data to be located at a single site. Centralized Databases provide greater control over accessing and updating data than distributed databases.\nHowever, this makes them more vulnerable, since they depend on resources at a central site.\n\n"
     },
     {
-        "instruction": "What is Distributed",
-        "input": "",
+        "instruction": "Give me information about Distributed",
+        "input": "Previous Context: Introduction to DBMS, Database Architectures & Major Types of Databases., Current Context: Distributed, ",
         "output": "Here, the DBMS (Database Management System) supports a database distributed across several different sites. \nDatabases are replicated to various sites and inter-connected via a network.\n\nThis improves database perofrmance and security.\n\n"
     },
     {
-        "instruction": "Tell me about Transactional vs Decision Supposrt Systems.",
-        "input": "",
+        "instruction": "Give me information about Transactional vs Decision Support Systems.",
+        "input": "Previous Context: Introduction to DBMS, Database Architectures & Major Types of Databases., Current Context: Transactional vs Decision Support Systems., ",
         "output": "Database Management Systems, are sometimes classified according to the expected **type** and exxtent of use. IN this case, a distrinction is made between **transactional databases** and **decision support systems**.\n\nA transactional database information is time-critical, such as inventory systems. Whereas, in the **DSS**, the data isn't as time-critical, but is instead used to make tactical / strategic decisions.\n\n"
     },
     {
-        "instruction": "Can you clarify Operational Databases",
-        "input": "",
+        "instruction": "What is Operational Databases",
+        "input": "Previous Context: Introduction to DBMS, Types of Databases, Current Context: Operational Databases, ",
         "output": "These are used to hold data generated by a business' operations, such as inventory or product data. They provide a centralized area of storage which is important for information sharing.\n\nOperational Databases have the ability to handle simultaneous read / write requests via pre-defined reports & queries. \n\n"
     },
     {
-        "instruction": "Tell me about Data Warehouses",
-        "input": "",
+        "instruction": "What is Data Warehouses",
+        "input": "Previous Context: Introduction to DBMS, Types of Databases, Current Context: Data Warehouses, ",
         "output": "Data warehouses mainly hold the organization's archival & historical data. This data is collected from databases across an organization.\n\nThis is the centeral source of data that has been cleaned, trnasformed and catalogued for business analysis.\n\n"
     },
     {
         "instruction": "Can you clarify External databases",
-        "input": "",
+        "input": "Previous Context: Introduction to DBMS, Types of Databases, Current Context: External databases, ",
         "output": "External Databases exxist outside of the organization and are used to hold a wide range of data that can include web databases.\n\n"
     },
     {
-        "instruction": "Can you clarify Components of a DBMS",
-        "input": "",
+        "instruction": "What is Components of a DBMS",
+        "input": "Previous Context: Introduction to DBMS, Database Management Systems, Current Context: Components of a DBMS, ",
         "output": "**Storage Manager**: DBMS goes far beyond the file system in providing flexibility, such as data structures that support efficient access to very large amounts of data.\n\n**Query Manager**: DBMS allows the user or application program to access and modify data through a pwoerful query language.\n\n**Transaction manager**: Supports concurrent access to data, in three (3) different methods. These being: *isolation*, *atomicity* and *durability*\n\n"
     },
     {
-        "instruction": "Can you clarify Components of DBMS Environment",
-        "input": "",
+        "instruction": "Give me information about Components of DBMS Environment",
+        "input": "Previous Context: Introduction to DBMS, Database Management Systems, Current Context: Components of DBMS Environment, ",
         "output": "There are five main components which make up the DBMS **environment**.\n\n- Users\n- Software\n- Hardware\n- Data\n- Procedures\n\n"
     },
     {
-        "instruction": "Give me information about Database Development",
-        "input": "",
+        "instruction": "Tell me about Database Development",
+        "input": "Previous Context: Introduction to DBMS, Major Functions of DBMS, Current Context: Database Development, ",
         "output": "Developers can create databases using a **Data Definition Language** (DDL) in DBMS to specify the **entities**, **relationships** and **structure** of each databases.\nThese specifications are then stored in a **data dictionary**, which is a computer-based catalogue / directory containing the **metadata**\n\n"
     },
     {
-        "instruction": "Tell me about Database Interrogation",
-        "input": "",
+        "instruction": "What is Database Interrogation",
+        "input": "Previous Context: Introduction to DBMS, Major Functions of DBMS, Current Context: Database Interrogation, ",
         "output": "A **query language** (Data Manipulation language) or **report generator** is used to ask the database for information. A query language allows ad hoc requests by keying in a query. A report generator however, allows users to specify a report format for presentation.\n\n"
     },
     {
-        "instruction": "Can you explain Database Maintenance",
-        "input": "",
+        "instruction": "What is Database Maintenance",
+        "input": "Previous Context: Introduction to DBMS, Major Functions of DBMS, Current Context: Database Maintenance, ",
         "output": "The DBMS is used to effect database updates to reflect new transactions and other events, to ensure accuracy of data.\n\n"
     },
     {
-        "instruction": "Can you clarify Multi-user Access Control",
-        "input": "",
+        "instruction": "Tell me about Multi-user Access Control",
+        "input": "Previous Context: Introduction to DBMS, Major Functions of DBMS, Current Context: Multi-user Access Control, ",
         "output": "To maintain data integrity and consistency, concurrent user transactions must be properly managed. The DBMS achieves this by ensuring that structures are in place to control simultaneous access by multiple users.\n\n"
     },
     {
-        "instruction": "Give me information about Application Development",
-        "input": "",
+        "instruction": "What is Application Development",
+        "input": "Previous Context: Introduction to DBMS, Major Functions of DBMS, Current Context: Application Development, ",
         "output": "The DBMS may be used to create custom application programs, such as data entry screens, forms, reports and web pages.\n\n"
     },
     {
-        "instruction": "Tell me about External Level",
-        "input": "",
+        "instruction": "Give me information about External Level",
+        "input": "Previous Context: Introduction to DBMS, Levels of Data Representation., Current Context: External Level, ",
         "output": "This defines the user's interaction with the database and the different ways in which users can see or view their data based on their requirements.\n\n\n"
     },
     {
         "instruction": "Tell me about Conceptual Level",
-        "input": "",
+        "input": "Previous Context: Introduction to DBMS, Levels of Data Representation., Current Context: Conceptual Level, ",
         "output": "This describes the basic data elements of the real world (persons, things, etc) referred to as **entities**, data elements that describe the entities known as **attributes** and associations between the data elements called **relationships**.\n\n"
     },
     {
-        "instruction": "Give me information about Internal Level",
-        "input": "",
+        "instruction": "Tell me about Internal Level",
+        "input": "Previous Context: Introduction to DBMS, Levels of Data Representation., Current Context: Internal Level, ",
         "output": "This level describes how data is actually stored and consists of the raw data existing on a physical device.\n\n"
     },
     {
-        "instruction": "Tell me about Components",
-        "input": "",
+        "instruction": "Can you clarify Components",
+        "input": "Previous Context: Database Design, Data Models, Current Context: Components, ",
         "output": "- **Entities** (Concept to be modeled)\t\n- **Attributes** (traits that define the entity)\n- **Relationships** (Used to describe interactions or associations between entities)\n- **Constraints** (Restrictions placed on that data. EX: age > 0)\n\n"
     },
     {
-        "instruction": "What is Hierarchical Model",
-        "input": "",
+        "instruction": "Tell me about Hierarchical Model",
+        "input": "Previous Context: Database Design, Historical Database Models., Current Context: Hierarchical Model, ",
         "output": "- Used in early mainframe DBMS packages\n- Has a tree-like structure\n- All records are dependent and arranged in a multilevel structure\n- Problem arises when you need to represent Many-To-Many relationships\n\n"
     },
     {
         "instruction": "Can you clarify Network Model",
-        "input": "",
+        "input": "Previous Context: Database Design, Historical Database Models., Current Context: Network Model, ",
         "output": "- More flexible than hierarchical\n- Can be used to represent more complex logical relationshops\n- Allows many to many relationships\n- Cannot easily handle ad hoc queries\n\n\n"
     },
     {
-        "instruction": "What is Relational Model",
-        "input": "Issues",
+        "instruction": "Give me information about Relational Model",
+        "input": "Previous Context: Database Design, Historical Database Models., Current Context: Relational Model, Subheadings: Issues",
         "output": "- Consists of \"flat file\" tables, called **relations**\n- Relations are made up of **tuples** (records) and **attributes** (fields or item types). **Relationships** between relations are implicit in the overlapping attributes used to define them.\n- Major advantage, has a strong mathematical foundation, and properties useful for defining Data Manipulation Languages.\n- SQL (Structured Query Language) is simple enough to learn that users can ask ad hoc queries to answer questions that had never been anticipitated at length\n\n"
     },
     {
-        "instruction": "Can you explain Object-Oriented Model",
-        "input": "",
+        "instruction": "Tell me about Object-Oriented Model",
+        "input": "Previous Context: Database Design, Historical Database Models., Current Context: Object-Oriented Model, ",
         "output": "- Other databases view entities in the world as having attributes.\n- Each object has attributes as well as behaviours.\n- Generally recommended when there is a business need for high performance;\n\n"
     },
     {
-        "instruction": "Tell me about Hybird Relational / Object Oriented",
-        "input": "",
+        "instruction": "Give me information about Hybird Relational / Object Oriented",
+        "input": "Previous Context: Database Design, Historical Database Models., Current Context: Hybird Relational / Object Oriented, ",
         "output": "Most vendors of relational databases allow the users to define their own data types. \nThis allows users to continue to use SQL, in a database that may contain pictures, sound clips, and other multimedia objects.\n"
     },
     {
-        "instruction": "Can you explain The Entity-Relationship (E-R) Model",
-        "input": "Entities Attributes Relationships",
+        "instruction": "Can you clarify The Entity-Relationship (E-R) Model",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, The Conceptual Data Model, Current Context: The Entity-Relationship (E-R) Model, Subheadings: Entities, Attributes, Relationships",
         "output": "The E-R model is an important model of real-wrold situations,a nd is used to construct a conceptual data model.\n\nERD contains 3 main elements:\n\n**Entities**\n: The things you are collecting information about, represented by *rectangeles*\n\n**Attributes**\n: The characteristics of these things, represented by *ovals*.\n\n**Relationships**\n: The associations between these entities, represented by *diamonds*.\n\n"
     },
     {
-        "instruction": "Tell me about Representing Entities",
-        "input": "",
+        "instruction": "What is Representing Entities",
+        "input": "Previous Context: Conceptual Model To Relational Schema, The process, Current Context: Representing Entities, ",
         "output": "Each **entity** in the ERD is a relation (table) in the relational database.\n\nEntity sets represented by **rectangles** become **relations**.\n\nThe relation name is the same as the entity name.\n\nFor strong entity sets, attributes become attributes (fields) of the relation.\n\nWeak entity sets may require additional attributes (fields): an entity that is identifier dependent on another entiity has no key of its own, so the primary key of the corresponding strong entity is added to the list of attributes of the weak entity.\n\n"
     },
     {
-        "instruction": "Can you clarify Representing Relationships",
-        "input": "",
+        "instruction": "Can you explain Representing Relationships",
+        "input": "Previous Context: Conceptual Model To Relational Schema, The process, Current Context: Representing Relationships, ",
         "output": "Each **relationship** is defined using **key attributes**.\n\nGenerally, the relation representing the relationship has at least 2 attributes:\n\n- Primary keys of the associated entities.\n- Its own descriptive attributes if any.\n/\n1:1 relationships: Put the key of either relation in the other to show the connection.\n\n1:M relationships: Place the key of A (the \"one\" side) in the relation for B(the \"many\" side), where it becomes a foreign key.\n\nM:M relationships: a relation must be explicitly represented.\n\n\n"
     },
     {
         "instruction": "Tell me about Normalize The Relations",
-        "input": "",
+        "input": "Previous Context: Conceptual Model To Relational Schema, The process, Current Context: Normalize The Relations, ",
         "output": "A series of stages called **normal forms** to remove specific types of dependencies and to ensure that databases are normalized correctly.\n\nRefines each relation to avoid unnecessary redundancy and possible update anomalies.\n\nNote:\n\nForeign keys are dashed underlines.\nPrimary keys are solid underlines.\n\n"
     },
     {
-        "instruction": "Can you explain Reflexivity",
-        "input": "",
+        "instruction": "Can you clarify Reflexivity",
+        "input": "Previous Context: Determining Functional Dependencies, Inference Rules For Functional Dependencies., Current Context: Reflexivity, ",
         "output": "If X is a subset of Y, then Y -> X, ie, Y determines X.\n\nExample: Given the set R (A, B, C)\n\n- ABC -> ABC\n- ABC -> AB\n- ABC -> BC\n- ABC -> AC\n\n"
     },
     {
-        "instruction": "Can you explain Augmentation",
-        "input": "",
+        "instruction": "What is Augmentation",
+        "input": "Previous Context: Determining Functional Dependencies, Inference Rules For Functional Dependencies., Current Context: Augmentation, ",
         "output": "If X -> Y then XZ -> YZ\n\n"
     },
     {
-        "instruction": "Give me information about Transitivity",
-        "input": "",
+        "instruction": "What is Transitivity",
+        "input": "Previous Context: Determining Functional Dependencies, Inference Rules For Functional Dependencies., Current Context: Transitivity, ",
         "output": "If X -> Y and Y -> Z then X -> Z\n\n"
     },
     {
-        "instruction": "What is Additive / Union Rule",
-        "input": "",
+        "instruction": "Give me information about Additive / Union Rule",
+        "input": "Previous Context: Determining Functional Dependencies, Inference Rules For Functional Dependencies., Current Context: Additive / Union Rule, ",
         "output": "If X -> Y and X -> Z then X -> YZ\n\n\n"
     },
     {
-        "instruction": "Tell me about Pseudotransitive Rule",
-        "input": "",
+        "instruction": "Can you explain Pseudotransitive Rule",
+        "input": "Previous Context: Determining Functional Dependencies, Inference Rules For Functional Dependencies., Current Context: Pseudotransitive Rule, ",
         "output": "If X -> Y and YZ -> W then XZ -> W\n\n\n"
     },
     {
-        "instruction": "Tell me about Productive Rule",
-        "input": "",
+        "instruction": "Give me information about Productive Rule",
+        "input": "Previous Context: Determining Functional Dependencies, Inference Rules For Functional Dependencies., Current Context: Productive Rule, ",
         "output": "If X -> YZ then X -> Y and X -> Z\n\n"
     },
     {
-        "instruction": "Tell me about Motivation",
-        "input": "",
+        "instruction": "Give me information about Motivation",
+        "input": "Previous Context: Determining Functional Dependencies, Normalization, Current Context: Motivation, ",
         "output": "To reduce redundancy of data, that is, the same data is being stored repeatedly.\nThe redundancy needs to be removed as redundancies can lead to data anomalies, which are undesirable.\n\n"
     },
     {
-        "instruction": "Tell me about Types of Data Anomalies",
-        "input": "",
+        "instruction": "Can you explain Types of Data Anomalies",
+        "input": "Previous Context: Determining Functional Dependencies, Normalization, Current Context: Types of Data Anomalies, ",
         "output": "- Insertion\n- Update\n- Deletion\n\n"
     },
     {
-        "instruction": "Can you explain First Normal Forms.",
-        "input": "Steps:",
+        "instruction": "Can you clarify First Normal Forms.",
+        "input": "Previous Context: Determining Functional Dependencies, Normal Forms, Current Context: First Normal Forms., Subheadings: Steps:",
         "output": "Ensure all columns (fields) are atomic. i.e, data in columns are single valued\n\nCreate separate tables for each group of related data and identify each row with a unique column or set of columns.\n\nEnsure each column has a unique meaningful name\n\nEnsure that a primary key is present.\n\n"
     },
     {
-        "instruction": "Give me information about Second normal forms",
-        "input": "",
+        "instruction": "What is Second normal forms",
+        "input": "Previous Context: Determining Functional Dependencies, Normal Forms, Current Context: Second normal forms, ",
         "output": "Rule: A relation is in Second Normal Form (2NF) if:\n\n- It is in 1NF, and\n- All non-prime attributes are fully dependent on the entire primary key\n\nProcess:\n\nIf an attribute(s) is partially dependent on the primary key. Move the partial dependecny out to new table.\nMake the primary key from the original table, the primary key for new table.\nPlace all items that appear in the repeating groups in the new table.\n\n"
     },
     {
-        "instruction": "What is Third Normal Form",
-        "input": "",
+        "instruction": "Can you explain Third Normal Form",
+        "input": "Previous Context: Determining Functional Dependencies, Normal Forms, Current Context: Third Normal Form, ",
         "output": "Rule: A relation is in 3NF if:\n\n- It is in 2NF\n- It has no transitive Dependencies.\n\nProcess:\n\nAssume R(A, B, C) with primary key A and transitive dependency B -> C\n\nReplace R with two tables:\n\nR1(B, C) with primary key B\nR2(A, B) with primary key A\n\nTherefore, attribute B in R2 is a foreign key\n"
     },
     {
         "instruction": "Can you clarify Issues",
-        "input": "",
+        "input": "Previous Context: Database Design, Historical Database Models., Relational Model, Current Context: Issues, ",
         "output": "- cannot process large amounts of business transactions as quickly and efficiently as hierarchical and network models.\n- Cannot process complex, high-volume data.\n\n"
     },
     {
-        "instruction": "Can you explain Entities",
-        "input": "",
+        "instruction": "What is Entities",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, The Conceptual Data Model, The Entity-Relationship (E-R) Model, Current Context: Entities, ",
         "output": "These can be thought of as *nouns*. Some examples of entities are Customer, Product, Order, Supplier.\n\nAny entities included in the ERD must play a necessary role in the system. \nThese entities must have a name that is a singular, concise and meaningful noun, and must be described by one or more attributes.\n\n**Strong Entities**: These have primary keys, and their existence is not dependent on other entities.\n\n**Weak Entities**: These depend on other entities for their existence, and cannot be uniquely identified using only their attributes. Their identifying primary key, is made up of their attributes, along with a foreign key from their parent entity. These are identified by a double bordered rectangle.\n\n"
     },
     {
-        "instruction": "Give me information about Attributes",
-        "input": "Types of Attributes",
+        "instruction": "Can you explain Attributes",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, The Conceptual Data Model, The Entity-Relationship (E-R) Model, Current Context: Attributes, Subheadings: Types of Attributes",
         "output": "These are used to describe the properties or *characteristics* of an entity, and can be thought of as adjectives, and are represented using an oval.\n\n"
     },
     {
-        "instruction": "Can you explain Relationships",
-        "input": "",
+        "instruction": "What is Relationships",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, The Conceptual Data Model, The Entity-Relationship (E-R) Model, Current Context: Relationships, ",
         "output": "These define the associations between entities and can be thought of as verbs. These relationships are represented using a diamond.\n\nBoth the **type** and the **degree** (1:1, 1:M, M:M) must be specified.\n\nThe **type** must be a succint & meaningful verb, as well as bi-directional.\n\n***Decomposing***\n\nWhen given a Many to Many relationship, you must decompose it by creating a new entity. This will create two (2) 1:M relationships. This new *entity* will have a composite key of the primary keys of the entities connecting to it. For example:\n\nCustomer <--> Purchase <--> Product.\n\nThis is a many to many relationship, where multiple customers can purchase multiple products, and multiple prroducts can be purchased by multiple customers.\n\nTo resolve this, we turn the **type** (purchases) into a new entity called Purchase, who's attributes are the CustNo (the Customer entity's primary key) and ProdId (the Product entity's primary key).\n\nThis now creates a 1 to many relationship, where 1 customer can have many purchases.\nAnd another where, 1 product can be part of many purchases.\n\n"
     },
     {
         "instruction": "Tell me about Steps:",
-        "input": "",
+        "input": "Previous Context: Determining Functional Dependencies, Normal Forms, First Normal Forms., Current Context: Steps:, ",
         "output": "Step 1\n: Eliminate the repeating groups\nStep 2\n: Identify the primary key\nStep 3\n: Identify all Dependencies \n\n*Notes*\nPartial Dependency is when an attribute that is a part of a composite key, determines another field.\nTransitive Dependency is when an attribute that is NOT a part of a composite key, determines annother field.\n\n"
     },
     {
-        "instruction": "Can you explain Types of Attributes",
-        "input": "",
+        "instruction": "What is Types of Attributes",
+        "input": "Previous Context: DB Design Intro & Conceptual Modelling, The Conceptual Data Model, The Entity-Relationship (E-R) Model, Attributes, Current Context: Types of Attributes, ",
         "output": "1. Simple Attribute: These are atomic values which cannot be broken down further.\n2. Composite Attribute: These can be divided into smaller parts. For example, Name could be composed of FirstName and lastName.\n3. Derived Attribute: These values can be derived from other values stored in the database and are therefore not stored in the physical database. Example, Age derived from Birthdate. These are represented using an oval with a dashed border.\n4. Single-Valued Attribute: This is similar to a simple attribute and contains only one value.\n5. Multi-Valued Attribute: These attributes can contain more than one value at any time. These are represented using an oval with a double border.\n\n**Key Attributes**\n\nEach entity requires a **key attribute** which can be used to uniquely identify each instance / record from another.\n\nThis is the minimum number of attributes that, when given value(s), uniquely identify one entity occurrence from another.\n\nKey attributes are often called **primary keys** and they **must** contain values. \n\nA **foreign key** is a primary key which acts as an attribute for another entity.\n\nNote:\n\n- Key attributes **must** contain values.\n- Primary keys are underlined with a Solid Line.\n- Foreign keys are underlined with a dashed line.\n\n"
     }
 ]

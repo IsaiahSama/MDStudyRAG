@@ -38,17 +38,21 @@ def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | Dict]] | None:
             "children": {
                 "Centralized": {
                     "content": '''some other content''',
-                    "children": {}
+                    "children": {},
+                    "parents": ["Database Architecture & Major Types of Databases"]
                 },
                 "Distributed": {
                     "content": '''Then some other content''',
-                    "children": {}
+                    "children": {},
+                    "parents": ["Database Architecture & Major Types of Databases"]
                 }
-            }
+            },
+            "parents": []
         },
         "Types of Databases": {
             "content": '''Last set of content''',
-            "children": {}
+            "children": {},
+            "parents": []
     }
     ```
     
@@ -107,7 +111,8 @@ def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | Dict]] | None:
         
         content_dict: Dict[str, str | List[Dict]] = {
             "content": body.lstrip("\n"), # Want to remove the leading \n from the split
-            "children": {}
+            "children": {},
+            "parents": []
         }
         
         # Step 4! Determine where we are in the hierarchy, and whether we need to add this as a child or not.
@@ -120,6 +125,7 @@ def create_hierarchy(contents: str) -> Dict[str, Dict[str, str | Dict]] | None:
             parent_dict = hierarchy
             while prev_level < current_heading_level:
                 previous_heading = heading_stack[prev_level]
+                content_dict["parents"].append(previous_heading)
                 parent_dict = parent_dict[previous_heading]["children"]
                 prev_level += 1
                 
@@ -152,8 +158,8 @@ def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | Dict]]) -> List[Dict
     ```
     [
         {
-            "instruction": "Give me information about {Database Architecture & Major Types of Databasees}",
-            "input": "{Centralized, Distributed}",
+            "instruction": "Give me information about {title}",
+            "input": "{parents, subheadings}",
             "output": "{content}"
         }
     ]
@@ -199,10 +205,14 @@ def create_alpaca_json(hierarchy: Dict[str, Dict[str, str | Dict]]) -> List[Dict
         
         # Now that we have the children, we can create what we need!
         
+        previous_context = ("Previous Context: " + ', '.join(list(level_dict["parents"]))) + ", " if level_dict["parents"] else ""
+        current_context = f"Current Context: {heading}, "
+        sub_context = "Subheadings: " + ', '.join([child.rstrip('.') for child in children.keys()]) if children else ""
+        
         alpaca_json_dict = {
             "instruction": choice(basic_prompts).format(heading),
-            "input": ' '.join(list(children.keys())),
-            "output": level_dict["content"] or "Not enough information, but these are the related topics - " + ' '.join(list(children.keys()))
+            "input": f"{ previous_context }{current_context}{sub_context}",
+            "output": level_dict["content"] or "Not enough information, but these are the related topics: " + ', '.join(list(children.keys()))
         }
         
         alpaca_json.append(alpaca_json_dict)
