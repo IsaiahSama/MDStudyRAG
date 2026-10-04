@@ -1,8 +1,9 @@
 from os import environ 
+from pathlib import Path
 from dotenv import load_dotenv
 import google.generativeai as genai
 
-load_dotenv("../.env")
+load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
 GEMINI_API_KEY = environ.get("GEMINI_API_KEY")
 GEMINI_EMBEDDING_MODEL = environ.get("GEMINI_EMBEDDING_MODEL", "models/embedding-001")

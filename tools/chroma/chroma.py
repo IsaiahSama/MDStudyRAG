@@ -1,5 +1,5 @@
 import chromadb
-from chromadb.errors import InvalidCollectionException
+from chromadb.errors import NotFoundError as InvalidCollectionException
 from typing import List
 from time import sleep
 from tqdm import tqdm
