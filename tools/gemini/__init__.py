@@ -1,7 +1,7 @@
 from os import environ 
 from pathlib import Path
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
 
 load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
@@ -12,4 +12,4 @@ GEMINI_MODEL = environ.get("GEMINI_MODEL", "models/gemini-flash-lite-latest")
 if not GEMINI_API_KEY:
     raise Exception("GEMINI_API_KEY not set in the .env file.")
 else:
-    genai.configure(api_key=GEMINI_API_KEY)
+    client = genai.Client(api_key=GEMINI_API_KEY)

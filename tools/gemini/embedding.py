@@ -1,9 +1,9 @@
 from chromadb import EmbeddingFunction, Documents, Embeddings
-import google.generativeai as genai
+from google.genai import types
 try:
-    from gemini import GEMINI_EMBEDDING_MODEL
+    from gemini import GEMINI_EMBEDDING_MODEL, client
 except ImportError:
-    from tools.gemini import GEMINI_EMBEDDING_MODEL
+    from tools.gemini import GEMINI_EMBEDDING_MODEL, client
 
 class GeminiEmbeddingFunction(EmbeddingFunction):
     
@@ -13,8 +13,8 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
     def __call__(self, input_: Documents) -> Embeddings:
         model: str = GEMINI_EMBEDDING_MODEL
         title: str = self.title
-        return genai.embed_content(model, 
-                                input_,
-                                'retrieval_document',
-                                title)['embedding']
+        result = client.models.embed_content(model=model,
+                                             contents=input_,
+                                             config=types.EmbedContentConfig(task_type='RETRIEVAL_DOCUMENT', title=title))
+        return [embedding.values for embedding in result.embeddings]
         
