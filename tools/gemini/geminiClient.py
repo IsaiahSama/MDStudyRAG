@@ -4,15 +4,15 @@ import google.generativeai as genai
 from google.generativeai.types.generation_types import GenerateContentResponse
 
 try:
-    from gemini import GEMINI_API_KEY
+    from gemini import GEMINI_API_KEY, GEMINI_MODEL
 except ImportError:
-    from tools.gemini import GEMINI_API_KEY
+    from tools.gemini import GEMINI_API_KEY, GEMINI_MODEL
 
 
 class GeminiClient:
     def __init__(self):
         
-        self.client = genai.GenerativeModel('models/gemini-pro')
+        self.client = genai.GenerativeModel(GEMINI_MODEL)
         
     def make_prompt(self, query: str, context: str, level:int=2) -> str:
         """Creates a prompt suitable for the model, alongside the given context.
