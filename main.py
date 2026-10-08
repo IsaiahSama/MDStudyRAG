@@ -42,7 +42,8 @@ def query(
     save: Annotated[bool | None, typer.Option("--save/--no-save", help="Save the response to ./result.txt.")] = None,
 ):
     """Ask the LLM a question about a collection."""
-    CliMenu().query_llm(collection, question, level, save)
+    if not CliMenu().query_llm(collection, question, level, save):
+        raise typer.Exit(1)
 
 
 @app.command()
@@ -52,7 +53,8 @@ def upload(
     yes: Yes = False,
 ):
     """Upload a markdown document as a new collection."""
-    CliMenu().upload_document(str(path) if path else None, title, yes)
+    if not CliMenu().upload_document(str(path) if path else None, title, yes):
+        raise typer.Exit(1)
 
 
 @app.command("list")
@@ -67,13 +69,15 @@ def delete(
     yes: Yes = False,
 ):
     """Delete a collection."""
-    CliMenu().delete_document(collection, yes)
+    if not CliMenu().delete_document(collection, yes):
+        raise typer.Exit(1)
 
 
 @app.command()
 def clear(yes: Yes = False):
     """Delete ALL collections."""
-    CliMenu().clear_database(yes)
+    if not CliMenu().clear_database(yes):
+        raise typer.Exit(1)
 
 
 if __name__ == "__main__":
