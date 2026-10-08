@@ -1,6 +1,7 @@
 """This will hold the implementation of the CLI menu."""
 
 import pyinputplus as pyip
+import re
 
 from os.path import exists
 from typing import List, override, Dict
@@ -15,6 +16,18 @@ except ImportError:
     from tools.gemini.geminiClient import GeminiClient
     from tools.gemini.embedding import GeminiEmbeddingFunction
     from tools.md_to_json import md_to_json
+
+# Chroma's collection name rules
+COLLECTION_NAME = re.compile(r"[a-z0-9][a-z0-9._-]{1,510}[a-z0-9]")
+
+
+def to_collection_name(title: str) -> str:
+    return title.lower().replace(" ", "_")
+
+
+def validate_title(title: str) -> None:
+    if not COLLECTION_NAME.fullmatch(to_collection_name(title)):
+        raise ValueError("Titles must be 3-512 characters of letters, numbers, spaces, '.', '_' or '-', and start and end with a letter or number.")
 
 
 class CliMenu(BaseMenu):
@@ -51,13 +64,13 @@ class CliMenu(BaseMenu):
         self.menu_options[action]["function"]()
     
     @override
-    def query_llm(self, collection: str | None = None, query: str | None = None, prompt_level: int | None = None, save: bool | None = None) -> str:
+    def query_llm(self, collection: str | None = None, query: str | None = None, prompt_level: int | None = None, save: bool | None = None) -> bool:
         
         # Ask the user what collection they want to query
         if not collection:
             print("Which collection would you like to query?")
         if not (collection := self.select_a_document(collection)):
-            return
+            return False
         
         # Get the collection
         
@@ -81,7 +94,7 @@ class CliMenu(BaseMenu):
                 print("Couldn't find relevant context, so will use basic prompt.")
             else:
                 print("Couldn't find relevant context")
-                return
+                return False
         else:
             context = ' '.join([f"PARTIALCONTEXT\n{passage}\nENDPARTIALCONTEXT\n" for passage in passages])
         
@@ -108,9 +121,10 @@ class CliMenu(BaseMenu):
                 fp.write(f"Question: {query}\n---\nPrompt: {prompt}\n---\nResponse: {result}")
         else:
             print("Okay!")
+        return True
 
     @override
-    def upload_document(self, doc_path: str | None = None, title: str | None = None, yes: bool = False) -> None:
+    def upload_document(self, doc_path: str | None = None, title: str | None = None, yes: bool = False) -> bool:
         def validate_path(path: str) -> bool:
             if exists(path) and path.split(".")[-1] == "md":
                 return path
@@ -121,11 +135,18 @@ class CliMenu(BaseMenu):
                 validate_path(doc_path)
             except ValueError as e:
                 print(e)
-                return
+                return False
         else:
             doc_path = pyip.inputCustom(validate_path, "Enter the path to the document you would like to upload.\n:")
         
-        title = title or pyip.inputStr("Fantastic! What should we title this collection? The title should reflect the nature of the content.\n:")
+        if title:
+            try:
+                validate_title(title)
+            except ValueError as e:
+                print(e)
+                return False
+        else:
+            title = pyip.inputCustom(validate_title, "Fantastic! What should we title this collection? The title should reflect the nature of the content.\n:")
         
         # Helper function to use for displaying a loading screen!
         def format_and_prepare_document(doc_path: str) -> str:
@@ -142,12 +163,13 @@ class CliMenu(BaseMenu):
         proceed = yes or pyip.inputYesNo("Are you sure you want to upload this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
         if not proceed: 
             print("Returning to menu!")
-            return 
+            return False
         
-        self.chroma_client.get_or_create_collection(title.lower().replace(" ", "_"), GeminiEmbeddingFunction, title)
+        self.chroma_client.get_or_create_collection(to_collection_name(title), GeminiEmbeddingFunction, title)
         self.chroma_client.add_items_to_collection(stringified_alpaca_json)
         
         print("Document uploaded!")
+        return True
 
     @override
     def view_documents(self) -> List[str]:
@@ -182,24 +204,25 @@ class CliMenu(BaseMenu):
         return super().update_document()
 
     @override
-    def delete_document(self, collection_name: str | None = None, yes: bool = False) -> None:
+    def delete_document(self, collection_name: str | None = None, yes: bool = False) -> bool:
         collection_name = self.select_a_document(collection_name)
-        if not collection_name: return
+        if not collection_name: return False
         confirm = yes or pyip.inputYesNo("Are you sure you want to delete this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
         
         if not confirm: 
             print("Aborting")
-            return 
+            return False
         
         self.chroma_client.delete_collection(collection_name)
         print("Collection deleted!")
+        return True
 
     @override
-    def clear_database(self, yes: bool = False) -> None:
+    def clear_database(self, yes: bool = False) -> bool:
         collections = self.view_documents()
         if not collections:
             print("No collections to delete.")
-            return
+            return True
         
         print("Clearing the databse means deleting ALL of the following records:")
         confirm = yes or pyip.inputYesNo("Are you sure you want to clear the database?\n:", postValidateApplyFunc=lambda x: x == 'yes')
@@ -209,8 +232,9 @@ class CliMenu(BaseMenu):
             loadable = loader.Loadable(self.chroma_client.delete_all_collections)
             ellipse_loader.start("Clearing the database!", loadable)
             self.view_documents()
-        else:
-            print("Aborting")
+            return True
+        print("Aborting")
+        return False
 
     @override
     def exit_program(self) -> None:
