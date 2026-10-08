@@ -51,11 +51,12 @@ class CliMenu(BaseMenu):
         self.menu_options[action]["function"]()
     
     @override
-    def query_llm(self) -> str:
+    def query_llm(self, collection: str | None = None, query: str | None = None, prompt_level: int | None = None, save: bool | None = None) -> str:
         
         # Ask the user what collection they want to query
-        print("Which collection would you like to query?")
-        if not (collection := self.select_a_document()):
+        if not collection:
+            print("Which collection would you like to query?")
+        if not (collection := self.select_a_document(collection)):
             return
         
         # Get the collection
@@ -63,12 +64,14 @@ class CliMenu(BaseMenu):
         self.chroma_client.get_or_create_collection(collection, GeminiEmbeddingFunction, collection)
         
         # Ask the user for their query
-        print(f"Understood. What would you like to ask about {collection}")
-        query = pyip.inputStr()
+        if not query:
+            print(f"Understood. What would you like to ask about {collection}")
+            query = pyip.inputStr()
         
         # Get the level for the query
-        print("What level of detail do you want for your response?")
-        prompt_level = pyip.inputChoice(["1", "2", "3"], prompt="Enter the level of detail you want for your response.\n(1 = Basic, 2 = Intermediate, 3 = Advanced)\n:", postValidateApplyFunc=lambda x: int(x))
+        if not prompt_level:
+            print("What level of detail do you want for your response?")
+            prompt_level = pyip.inputChoice(["1", "2", "3"], prompt="Enter the level of detail you want for your response.\n(1 = Basic, 2 = Intermediate, 3 = Advanced)\n:", postValidateApplyFunc=lambda x: int(x))
         
         # Get the relevant context!
         passages = self.chroma_client.query_collection(query, n_results=5)
@@ -96,8 +99,9 @@ class CliMenu(BaseMenu):
         print(f"\nYour Question: {query}\nModel Response:\n {result}\n")
         print("---")
         
-        save_file = pyip.inputYesNo("Would you like to save this response to a file?\n:", postValidateApplyFunc=lambda x: x == 'yes')
-        if save_file:
+        if save is None:
+            save = pyip.inputYesNo("Would you like to save this response to a file?\n:", postValidateApplyFunc=lambda x: x == 'yes')
+        if save:
             file_path = "./result.txt"
             
             with open(file_path, "w") as fp:
@@ -106,15 +110,22 @@ class CliMenu(BaseMenu):
             print("Okay!")
 
     @override
-    def upload_document(self) -> None:
+    def upload_document(self, doc_path: str | None = None, title: str | None = None, yes: bool = False) -> None:
         def validate_path(path: str) -> bool:
             if exists(path) and path.split(".")[-1] == "md":
                 return path
             raise ValueError("Invalid path. Please enter a valid path to a markdown file.")
         
-        doc_path = pyip.inputCustom(validate_path, "Enter the path to the document you would like to upload.\n:")
+        if doc_path:
+            try:
+                validate_path(doc_path)
+            except ValueError as e:
+                print(e)
+                return
+        else:
+            doc_path = pyip.inputCustom(validate_path, "Enter the path to the document you would like to upload.\n:")
         
-        title = pyip.inputStr("Fantastic! What should we title this collection? The title should reflect the nature of the content.\n:")
+        title = title or pyip.inputStr("Fantastic! What should we title this collection? The title should reflect the nature of the content.\n:")
         
         # Helper function to use for displaying a loading screen!
         def format_and_prepare_document(doc_path: str) -> str:
@@ -128,7 +139,7 @@ class CliMenu(BaseMenu):
         stringified_alpaca_json = ellipse.start("Formatting and preparing the document!", formatter)
         
         # Then, we can upload the alpaca json, after confirming the user wants to proceed.
-        proceed = pyip.inputYesNo("Are you sure you want to upload this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
+        proceed = yes or pyip.inputYesNo("Are you sure you want to upload this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
         if not proceed: 
             print("Returning to menu!")
             return 
@@ -149,7 +160,13 @@ class CliMenu(BaseMenu):
         
         return collections
         
-    def select_a_document(self) -> str:
+    def select_a_document(self, collection_name: str | None = None) -> str:
+        if collection_name:
+            if collection_name in self.chroma_client.get_all_collection_names():
+                return collection_name
+            print(f"No collection named '{collection_name}'.")
+            return ""
+
         collections = self.view_documents()
         if not (collections):
             print("No collections found. Please add a collection and try again.")
@@ -165,10 +182,10 @@ class CliMenu(BaseMenu):
         return super().update_document()
 
     @override
-    def delete_document(self) -> None:
-        collection_name = self.select_a_document()
+    def delete_document(self, collection_name: str | None = None, yes: bool = False) -> None:
+        collection_name = self.select_a_document(collection_name)
         if not collection_name: return
-        confirm = pyip.inputYesNo("Are you sure you want to delete this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
+        confirm = yes or pyip.inputYesNo("Are you sure you want to delete this document?\n:", postValidateApplyFunc=lambda x: x == 'yes')
         
         if not confirm: 
             print("Aborting")
@@ -178,14 +195,14 @@ class CliMenu(BaseMenu):
         print("Collection deleted!")
 
     @override
-    def clear_database(self) -> None:
+    def clear_database(self, yes: bool = False) -> None:
         collections = self.view_documents()
         if not collections:
             print("No collections to delete.")
             return
         
         print("Clearing the databse means deleting ALL of the following records:")
-        confirm = pyip.inputYesNo("Are you sure you want to clear the database?\n:", postValidateApplyFunc=lambda x: x == 'yes')
+        confirm = yes or pyip.inputYesNo("Are you sure you want to clear the database?\n:", postValidateApplyFunc=lambda x: x == 'yes')
         
         if confirm:
             ellipse_loader = loader.LoadingEllipse()
