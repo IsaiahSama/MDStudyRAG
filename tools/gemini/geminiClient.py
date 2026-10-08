@@ -1,18 +1,17 @@
 from dotenv import load_dotenv 
 from os import environ
-import google.generativeai as genai
-from google.generativeai.types.generation_types import GenerateContentResponse
+from google.genai.types import GenerateContentResponse
 
 try:
-    from gemini import GEMINI_API_KEY, GEMINI_MODEL
+    from gemini import GEMINI_API_KEY, GEMINI_MODEL, client
 except ImportError:
-    from tools.gemini import GEMINI_API_KEY, GEMINI_MODEL
+    from tools.gemini import GEMINI_API_KEY, GEMINI_MODEL, client
 
 
 class GeminiClient:
     def __init__(self):
         
-        self.client = genai.GenerativeModel(GEMINI_MODEL)
+        self.client = client
         
     def make_prompt(self, query: str, context: str, level:int=2) -> str:
         """Creates a prompt suitable for the model, alongside the given context.
@@ -54,5 +53,5 @@ If the question is not related to the context, please respond with only 'OUT OF 
             str: The response from the model.
         """
         
-        model_response: GenerateContentResponse = self.client.generate_content(contents=prompt)
+        model_response: GenerateContentResponse = self.client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
         return model_response.text
